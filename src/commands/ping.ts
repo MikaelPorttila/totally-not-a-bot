@@ -11,7 +11,6 @@ export function registerCommand() {
     description: "Hello world of commands",
     type: ApplicationCommandTypes.ChatInput,
     execute: async (bot: Bot, interaction) => {
-      console.log("[Ping Command]", "incoming interaction");
       await bot.helpers.sendInteractionResponse(
         interaction.id,
         interaction.token,

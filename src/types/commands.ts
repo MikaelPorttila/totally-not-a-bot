@@ -11,5 +11,5 @@ export interface Command {
   type: ApplicationCommandTypes;
   devOnly?: boolean;
   options?: ApplicationCommandOption[];
-  execute: (bot: Bot, interaction: Interaction) => unknown;
+  execute: (bot: Bot, interaction: Interaction) => Promise<unknown>;
 }
