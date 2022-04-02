@@ -20,7 +20,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
           bot,
           message.channelId,
           message.id,
-          smartGuyReactionEmoji,
+          smartGuyReactionEmoji
         );
       }
     }
