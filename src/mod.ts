@@ -7,7 +7,7 @@ import {
 } from "./handlers/mod.ts";
 import { EmojiService, MemeService } from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
-import { getConfig } from "./helpers/config-helper.ts";
+import { getConfig } from "./helpers/config_helper.ts";
 
 const config = getConfig();
 let emojiService: EmojiService;

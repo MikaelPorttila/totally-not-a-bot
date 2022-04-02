@@ -1,5 +1,5 @@
 import type { Collection, Emoji } from "../../deps.ts";
-import { getReactionEmoji } from "../helpers/emoji-helper.ts";
+import { getReactionEmoji } from "../helpers/emoji_helper.ts";
 
 export class EmojiService {
   constructor(private cache: Collection<bigint, Emoji>) {}
