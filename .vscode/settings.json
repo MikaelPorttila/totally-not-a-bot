@@ -1,0 +1,11 @@
+{
+  "discord.enabled": true,
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "editor.renderWhitespace": "all",
+  "deno.suggest.autoImports": true,
+  "deno.suggest.imports.hosts": {
+    "https://deno.land/": true
+  }
+}
