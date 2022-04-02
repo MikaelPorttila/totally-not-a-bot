@@ -33,10 +33,7 @@ const clientBot = createBot({
 
       registerPingCommand();
 
-      await bot.helpers.upsertApplicationCommands(
-        clientBot.commands.array() as any,
-        guildId,
-      );
+      await bot.helpers.upsertApplicationCommands(clientBot.commands.array() as any);
     },
     async messageCreate(bot: Bot, message: Message) {
       if (message.isBot) {
