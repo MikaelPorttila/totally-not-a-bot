@@ -11,7 +11,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
     message: Message,
     normalizedMessageContent: string,
   ) {
-    if (normalizedMessageContent.indexOf(trigger) !== -1) {
+    if (normalizedMessageContent.indexOf(trigger) === -1) {
       return;
     }
 
