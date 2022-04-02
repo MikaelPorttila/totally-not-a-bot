@@ -3,25 +3,35 @@ import { EmojiService } from "../services/mod.ts";
 import { MessageHandler } from "./types/mod.ts";
 
 export function createHandler(emojiService: EmojiService): MessageHandler {
-  const mikaelNicks = ["micke", "mikael", "sture", "eco"];
+  const reactionTable = [
+    { 
+      for: ["micke", "mikael", "sture", "eco"],
+      reaction: emojiService.getReactionName("intplus")
+    },
+    {
+      for: ['epi'],
+      reaction: emojiService.getReactionName("epi")
+    },
+    {
+      for: ['cod', 'snarkov', 'tarkov', 'cs', 'stridsåker', 'bf'],
+      reaction: '🎮'
+    }
+  ];
 
   return async function (
     bot: Bot,
     message: Message,
     normalizedMessageContent: string,
   ) {
-    if (
-      mikaelNicks.some((name) => normalizedMessageContent.indexOf(name) !== -1)
-    ) {
-      console.log("[Name Message Handle] triggered");
-      const smartGuyReactionEmoji = emojiService.getReactionName("intplus");
-      if (smartGuyReactionEmoji) {
+
+    for(const reactionGroup of reactionTable) {
+      if(reactionGroup.for.some(term => normalizedMessageContent.indexOf(term) !== -1) && reactionGroup.reaction) {
         try {
           await addReaction(
             bot,
             message.channelId,
             message.id,
-            smartGuyReactionEmoji,
+            reactionGroup.reaction,
           );
         } catch (err) {
           console.error("[Name Handler]", err);

@@ -1,11 +1,10 @@
 import {
   Collection,
   createBot,
-  Interaction,
-  InteractionResponseTypes,
+  Interaction
 } from "../deps.ts";
 import type { Bot, Message } from "../deps.ts";
-import { createEpiHandler, createNameHandler } from "./handlers/mod.ts";
+import { createReactionHandler } from "./handlers/mod.ts";
 import { createEmojiService, EmojiService } from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
@@ -32,8 +31,7 @@ const clientBot = createBot({
 
       console.log("[Bot]", "Register message handlers");
       handlers = [
-        createNameHandler(emojiService),
-        createEpiHandler(emojiService),
+        createReactionHandler(emojiService)
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
