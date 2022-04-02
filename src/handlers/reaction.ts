@@ -34,7 +34,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
             reactionGroup.reaction,
           );
         } catch (err) {
-          console.error("[Name Handler]", err);
+          console.error("[Reaction Handler]", err);
         }
       }
     }

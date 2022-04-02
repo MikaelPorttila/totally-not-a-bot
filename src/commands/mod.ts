@@ -1,1 +1,4 @@
-export { registerCommand as registerPingCommand } from "./ping.ts";
+import { registerCommand as registerPingCommand } from "./ping.ts";
+export { registerPingCommand };
+
+export const allCommands = [registerPingCommand];

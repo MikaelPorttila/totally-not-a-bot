@@ -1,15 +1,14 @@
 import {
   Collection,
-  createBot,
-  Interaction
+  createBot
 } from "../deps.ts";
-import type { Bot, Message } from "../deps.ts";
+import type { Bot, Message, CreateApplicationCommand, Interaction } from "../deps.ts";
 import { createReactionHandler } from "./handlers/mod.ts";
 import { createEmojiService, EmojiService } from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
-import { registerPingCommand } from "./commands/mod.ts";
+import { allCommands } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
 let emojiService: EmojiService;
@@ -35,10 +34,12 @@ const clientBot = createBot({
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
-      registerPingCommand();
+      console.log("[Bot]", "Register commands");
+      allCommands.forEach(commandRegistrator => commandRegistrator());
+      console.log("[Bot]", "Registered", allCommands.length, "commands");
 
       await bot.helpers.upsertApplicationCommands(
-        clientBot.commands.array() as any,
+        clientBot.commands.array() as CreateApplicationCommand[],
       );
     },
     async messageCreate(bot: Bot, message: Message) {
