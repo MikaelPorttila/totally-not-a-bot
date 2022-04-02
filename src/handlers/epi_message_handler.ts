@@ -9,7 +9,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageContent: string,
+    normalizedMessageContent: string
   ) {
     if (normalizedMessageContent.indexOf(trigger) === -1) {
       return;
