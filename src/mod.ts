@@ -35,8 +35,8 @@ const bot = createBot({
       console.log("[Bot]", "Register message handlers");
       handlers = [
         createNameHandler(emojiService),
-        createEpiHandler(emojiService),
-        createMemeHandler(memeService),
+        createEpiHandler(emojiService)
+        //createMemeHandler(memeService),
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
     },
