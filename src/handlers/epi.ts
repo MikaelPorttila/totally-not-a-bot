@@ -9,7 +9,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageContent: string
+    normalizedMessageContent: string,
   ) {
     if (normalizedMessageContent.indexOf(trigger) === -1) {
       return;
@@ -18,7 +18,11 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
     console.log("[Name Message Handle] triggered");
     const epiReactionEmoji = emojiService.getReactionName("epi");
     if (epiReactionEmoji) {
-      await addReaction(bot, message.channelId, message.id, epiReactionEmoji);
+      try {
+        await addReaction(bot, message.channelId, message.id, epiReactionEmoji);
+      } catch (err) {
+        console.error("[EPI Handler]", err);
+      }
     }
   };
 }

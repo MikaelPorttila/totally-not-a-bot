@@ -1,4 +1,5 @@
-import type { Collection, Emoji } from "../../deps.ts";
+import type { Bot, Collection, Emoji } from "../../deps.ts";
+import { getEmojis } from "../../deps.ts";
 import { getReactionEmoji } from "../helpers/emoji_helper.ts";
 
 export class EmojiService {
@@ -17,4 +18,12 @@ export class EmojiService {
     const emoji = this.get(name);
     return emoji ? getReactionEmoji(emoji) : undefined;
   }
+}
+
+export async function createEmojiService(
+  bot: Bot,
+  guildId: bigint,
+): Promise<EmojiService> {
+  const guildEmojis = await getEmojis(bot, guildId);
+  return new EmojiService(guildEmojis);
 }

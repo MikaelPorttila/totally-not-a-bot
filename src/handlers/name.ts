@@ -16,12 +16,16 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
       console.log("[Name Message Handle] triggered");
       const smartGuyReactionEmoji = emojiService.getReactionName("intplus");
       if (smartGuyReactionEmoji) {
-        await addReaction(
-          bot,
-          message.channelId,
-          message.id,
-          smartGuyReactionEmoji
-        );
+        try {
+          await addReaction(
+            bot,
+            message.channelId,
+            message.id,
+            smartGuyReactionEmoji,
+          );
+        } catch (err) {
+          console.error("[Name Handler]", err);
+        }
       }
     }
   };

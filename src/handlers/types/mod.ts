@@ -1,1 +1,1 @@
-export type { MessageHandler } from "./handler.ts";
+export type { MessageHandler } from "./message_handler.ts";
