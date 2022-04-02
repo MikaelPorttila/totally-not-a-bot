@@ -16,7 +16,6 @@ export {
   createEventHandlers,
   deleteMessage,
   fetchMembers,
-  GatewayIntents,
   getDmChannel,
   getEmoji,
   getEmojis,

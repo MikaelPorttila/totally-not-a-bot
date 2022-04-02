@@ -10,11 +10,13 @@ export class MemeService {
 
   async query(queryText: string): Promise<Meme | undefined> {
     if (!this.config.memeServiceEndpoint) {
-      console.log('[MemeService]', 'memeServiceEndpoint missing');
+      console.log("[MemeService]", "memeServiceEndpoint missing");
       return;
     }
 
-    const queryUrl = encodeURI(`${this.config.memeServiceEndpoint}${queryText}`);
+    const queryUrl = encodeURI(
+      `${this.config.memeServiceEndpoint}${queryText}`,
+    );
     const rawHtml = await fetch(queryUrl).then((res) => res.text());
     const element = this.parser
       .parseFromString(rawHtml, "text/html")

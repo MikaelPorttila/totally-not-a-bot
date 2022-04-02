@@ -29,7 +29,13 @@ export function createHandler(memeService: MemeService): MessageHandler {
       });
       await sendMessage(bot, message.channelId, { content: meme.img });
     } else {
-      console.log('[Meme Message Handler]', 'Meme not found', 'queryText: "', queryText, '"');
+      console.log(
+        "[Meme Message Handler]",
+        "Meme not found",
+        'queryText: "',
+        queryText,
+        '"',
+      );
     }
   };
 }
