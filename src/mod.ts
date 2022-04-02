@@ -1,17 +1,12 @@
 import { createBot, getEmojis, startBot } from "../deps.ts";
 import type { Bot, Message } from "../deps.ts";
-import {
-  createEpiHandler,
-  createMemeHandler,
-  createNameHandler,
-} from "./handlers/mod.ts";
-import { EmojiService, MemeService } from "./services/mod.ts";
+import { createEpiHandler, createNameHandler } from "./handlers/mod.ts";
+import { EmojiService } from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { getConfig } from "./helpers/config_helper.ts";
 
 const config = getConfig();
 let emojiService: EmojiService;
-let memeService: MemeService;
 let handlers: MessageHandler[];
 
 const bot = createBot({
@@ -28,15 +23,13 @@ const bot = createBot({
       // Setup services
       console.log("[Bot]", "Register services");
       emojiService = new EmojiService(emojiCache);
-      memeService = new MemeService(config);
       console.log("[Bot]", "Register services completed");
 
       // Setup message  handlers
       console.log("[Bot]", "Register message handlers");
       handlers = [
         createNameHandler(emojiService),
-        createEpiHandler(emojiService)
-        //createMemeHandler(memeService),
+        createEpiHandler(emojiService),
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
     },
@@ -46,6 +39,10 @@ const bot = createBot({
       }
 
       const messageText = message.content.trim().toLocaleLowerCase();
+      if (!messageText) {
+        return;
+      }
+
       for (const handler of handlers) {
         await handler(bot, message, messageText);
       }

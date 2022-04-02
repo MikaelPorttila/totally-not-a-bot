@@ -2,8 +2,9 @@ import { Bot, deleteMessage, Message, sendMessage } from "../../deps.ts";
 import { MemeService } from "../services/meme_service.ts";
 import { MessageHandler } from "./types/mod.ts";
 
-const trigger = "!meme";
 export function createHandler(memeService: MemeService): MessageHandler {
+  const trigger = "!meme";
+
   return async function (
     bot: Bot,
     message: Message,
@@ -12,6 +13,7 @@ export function createHandler(memeService: MemeService): MessageHandler {
     if (normalizedMessageContent.indexOf(trigger) === -1) {
       return;
     }
+    console.log("[Meme Message Handle] triggered");
 
     const queryText = message.content.replace(trigger + " ", "").trim();
     const meme = await memeService.query(queryText);
