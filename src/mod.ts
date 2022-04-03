@@ -3,18 +3,26 @@ import { bot } from "./bot.ts";
 import { configs } from "./configs.ts";
 
 const initBot = true;
+
+/*
+    Deno Deploy is running multiple staging environments.
+    This allows use to stop the bot from running in the stage environments.
+*/
 if (configs.deploymentId) {
   console.log("Deployment Id", configs.deploymentId);
-
   const port = 443;
   const handler = (request: Request): Response => {
-    const url = new URL(request.url);
-
-    let body = "Your user-agent is:\n\n";
-    body += (request.headers.get("user-agent") || "Unknown") + "\n\n";
-    body += url.searchParams.get("deploymentId");
-
-    return new Response(body, { status: 200 });
+    const deploymentId =  new URL(request.url)
+        .searchParams
+        .get("deploymentId");
+    console.log(`[Deployment check] deployment id:`, deploymentId);
+    const match = deploymentId === configs.deploymentId;
+    return new Response(JSON.stringify(match), {
+      status: 200,
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   };
 
   console.log(`HTTP webserver running.`);
