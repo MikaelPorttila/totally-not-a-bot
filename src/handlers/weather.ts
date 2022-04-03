@@ -7,9 +7,9 @@ export function createHandler(weatherService: WeatherService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageContent: string,
+    normalizedMessageWords: string[]
   ) {
-    if (normalizedMessageContent.indexOf(trigger) === -1) {
+    if (normalizedMessageWords[0] !== trigger) {
       return;
     }
 

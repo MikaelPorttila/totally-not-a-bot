@@ -5,7 +5,7 @@ import { MessageHandler } from "./types/mod.ts";
 export function createHandler(emojiService: EmojiService): MessageHandler {
   const reactionTable = [
     {
-      for: ["micke", "mikael", "sture", "eco"],
+      for: ["micke", "mikael", "sture"],
       reaction: emojiService.getReactionName("intplus"),
     },
     {
@@ -21,20 +21,19 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageContent: string,
+    normalizedMessageWords: string[]
   ) {
-    for (const reactionGroup of reactionTable) {
+    for (const group of reactionTable) {
       if (
-        reactionGroup.for.some((term) =>
-          normalizedMessageContent.indexOf(term) !== -1
-        ) && reactionGroup.reaction
+        group.reaction &&
+        group.for.some((term) => normalizedMessageWords.some(x => x === term))
       ) {
         try {
           await addReaction(
             bot,
             message.channelId,
             message.id,
-            reactionGroup.reaction,
+            group.reaction,
           );
         } catch (err) {
           console.error("[Reaction Handler]", err);

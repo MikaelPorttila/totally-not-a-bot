@@ -61,9 +61,9 @@ const clientBot = createBot({
       if (!messageText) {
         return;
       }
-
+      const messageWords = messageText.split(/\s+|\./);
       for (const handler of handlers) {
-        await handler(bot, message, messageText);
+        await handler(bot, message, messageWords);
       }
     },
     async interactionCreate(bot: Bot, interaction: Interaction) {
@@ -71,6 +71,7 @@ const clientBot = createBot({
       if (!interactionName) {
         return;
       }
+      console.log(`[${interactionName} Command]`, "request");
 
       const cmd = clientBot.commands.find((_, name) =>
         name === interactionName

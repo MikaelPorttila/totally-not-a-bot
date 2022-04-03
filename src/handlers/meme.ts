@@ -8,9 +8,9 @@ export function createHandler(memeService: MemeService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageContent: string,
+    normalizedMessageWords: string[]
   ) {
-    if (normalizedMessageContent.indexOf(trigger) === -1) {
+    if (!normalizedMessageWords.some(word => word === trigger)) {
       return;
     }
     console.log("[Meme Message Handle] triggered");

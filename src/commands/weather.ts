@@ -8,7 +8,7 @@ import { DEFAULT_CITIES, WeatherService } from "../services/mod.ts";
 
 export function registerCommand(weatherService: WeatherService) {
   createCommand({
-    name: "wääder",
+    name: "waader",
     description: "Visa vädret för relevanta kommuner",
     type: ApplicationCommandTypes.ChatInput,
     execute: async (bot: Bot, interaction: Interaction) => {
