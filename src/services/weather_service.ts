@@ -59,5 +59,6 @@ export const DEFAULT_WEATHER_AREAS = [
   "vallentuna",
   "solna",
   "bollmora",
-  "vasastaden"
+  "vasastaden",
+  "Kårböle"
 ];
