@@ -4,7 +4,8 @@ import { MessageHandler } from "./types/mod.ts";
 
 export function createHandler(weatherService: WeatherService): MessageHandler {
   const trigger = "!wääder";
-  const cities = ["farsta", "sollentuna", "vallentuna", "solna"];
+  const fakeTyreso = "Bollmora";
+  const cities = ["farsta", "sollentuna", "vallentuna", "solna", fakeTyreso];
   return async function (
     bot: Bot,
     message: Message,
@@ -18,7 +19,12 @@ export function createHandler(weatherService: WeatherService): MessageHandler {
     const weatherData = await Promise.all(requests);
     const chatMessage = weatherData.reduce(
       (builder, data) => {
-        let entry = `**${data.name}**: ${Math.round(data.main.temp)} °C (Känns som: ${Math.round(data.main.feels_like)} °C)`;
+        let name = data.name;
+        if(name === fakeTyreso) {
+            name = '"Tyresö"';
+        }
+
+        let entry = `**${name}**: ${Math.round(data.main.temp)} °C (Känns som: ${Math.round(data.main.feels_like)} °C)`;
 
         if (data.weather && data.weather[0]) {
           const weatherSymbol = getWeatherSymbol(data.weather[0].main);
