@@ -1,5 +1,5 @@
 import { Bot, Message, sendMessage } from "../../deps.ts";
-import { DEFAULT_CITIES, WeatherService } from "../services/mod.ts";
+import { DEFAULT_WEATHER_AREAS, WeatherService } from "../services/mod.ts";
 import { MessageHandler } from "./types/mod.ts";
 
 export function createHandler(weatherService: WeatherService): MessageHandler {
@@ -13,7 +13,7 @@ export function createHandler(weatherService: WeatherService): MessageHandler {
       return;
     }
 
-    const weatherSummary = await weatherService.getSummary(DEFAULT_CITIES);
+    const weatherSummary = await weatherService.getSummary(DEFAULT_WEATHER_AREAS);
     await sendMessage(
       bot,
       message.channelId,

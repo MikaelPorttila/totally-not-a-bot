@@ -53,10 +53,11 @@ export class WeatherService {
   }
 }
 
-export const DEFAULT_CITIES = [
+export const DEFAULT_WEATHER_AREAS = [
   "farsta",
   "sollentuna",
   "vallentuna",
   "solna",
   "bollmora",
+  "vasastaden"
 ];
