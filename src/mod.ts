@@ -10,7 +10,8 @@ let runBot = true;
 */
 if (configs.deploymentId) {
   console.log("Deployment Id", configs.deploymentId);
-  const port = 443;
+  console.log("Deployment Production Endpoint Url", configs.productionEndpointUrl);
+
   const handler = (request: Request): Response => {
     const deploymentId = new URL(request.url).searchParams.get("deploymentId");
     console.log(`[Deployment check] deployment id:`, deploymentId);
@@ -24,7 +25,7 @@ if (configs.deploymentId) {
   };
 
   console.log(`HTTP webserver running.`);
-  await serve(handler, { port });
+  await serve(handler, { port: 443 });
 }
 
 if (configs.deploymentId && configs.productionEndpointUrl) {
