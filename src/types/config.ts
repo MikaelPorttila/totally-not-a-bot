@@ -4,4 +4,5 @@ export interface Config {
   token: string;
   memeServiceEndpoint?: string;
   openWeatherApplicationId?: string;
+  env: string;
 }
