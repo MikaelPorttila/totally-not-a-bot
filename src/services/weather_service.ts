@@ -16,7 +16,7 @@ export class WeatherService {
     const requests = cities.map((city) => this.get(city, country));
     const weatherDataCollection = await Promise.all(requests);
 
-    let result = '';
+    let result = "";
     for (const data of weatherDataCollection) {
       let name = data.name;
       if (name === "Bollmora") {
@@ -30,8 +30,8 @@ export class WeatherService {
 
       const temp = Math.round(data.main.temp);
       const feelsLikeTemp = Math.round(data.main.feels_like);
-      result += `**${name}**: ${ temp } °C (Känns som: ${feelsLikeTemp} °C) ${weatherSymbol}\n`;
-      
+      result +=
+        `**${name}**: ${temp} °C (Känns som: ${feelsLikeTemp} °C) ${weatherSymbol}\n`;
     }
 
     return result;
@@ -52,3 +52,11 @@ export class WeatherService {
     }
   }
 }
+
+export const DEFAULT_CITIES = [
+  "farsta",
+  "sollentuna",
+  "vallentuna",
+  "solna",
+  "bollmora",
+];

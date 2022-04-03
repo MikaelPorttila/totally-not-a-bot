@@ -14,7 +14,7 @@ import {
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
-import { allCommands } from "./commands/mod.ts";
+import { registerPingCommand, registerWeatherCommand } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
 let emojiService: EmojiService;
@@ -44,8 +44,9 @@ const clientBot = createBot({
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
       console.log("[Bot]", "Register commands");
-      allCommands.forEach((commandRegistrator) => commandRegistrator());
-      console.log("[Bot]", "Registered", allCommands.length, "commands");
+      registerPingCommand();
+      registerWeatherCommand(weatherService);
+      console.log("[Bot]", "Registered commands");
 
       await bot.helpers.upsertApplicationCommands(
         clientBot.commands.array() as CreateApplicationCommand[],
