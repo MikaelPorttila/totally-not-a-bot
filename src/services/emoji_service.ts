@@ -10,7 +10,7 @@ export class EmojiService {
       return undefined;
     }
 
-    const emoji = this.cache.find((emoji, _) => emoji.name === name);
+    const emoji = this.cache.find((emoji) => emoji.name === name);
     return emoji;
   }
 

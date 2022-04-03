@@ -1,10 +1,16 @@
-import {
-  Collection,
-  createBot
+import { Collection, createBot } from "../deps.ts";
+import type {
+  Bot,
+  CreateApplicationCommand,
+  Interaction,
+  Message,
 } from "../deps.ts";
-import type { Bot, Message, CreateApplicationCommand, Interaction } from "../deps.ts";
-import { createReactionHandler } from "./handlers/mod.ts";
-import { createEmojiService, EmojiService } from "./services/mod.ts";
+import { createReactionHandler, createWeatherHandler } from "./handlers/mod.ts";
+import {
+  createEmojiService,
+  EmojiService,
+  WeatherService,
+} from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -12,6 +18,7 @@ import { allCommands } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
 let emojiService: EmojiService;
+let weatherService: WeatherService;
 let handlers: MessageHandler[];
 
 const clientBot = createBot({
@@ -26,16 +33,18 @@ const clientBot = createBot({
 
       console.log("[Bot]", "Register services");
       emojiService = await createEmojiService(bot, guildId);
+      weatherService = new WeatherService(configs);
       console.log("[Bot]", "Register services completed");
 
       console.log("[Bot]", "Register message handlers");
       handlers = [
-        createReactionHandler(emojiService)
+        createReactionHandler(emojiService),
+        createWeatherHandler(weatherService),
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
       console.log("[Bot]", "Register commands");
-      allCommands.forEach(commandRegistrator => commandRegistrator());
+      allCommands.forEach((commandRegistrator) => commandRegistrator());
       console.log("[Bot]", "Registered", allCommands.length, "commands");
 
       await bot.helpers.upsertApplicationCommands(

@@ -3,4 +3,5 @@ export interface Config {
   applicationId: bigint;
   token: string;
   memeServiceEndpoint?: string;
+  openWeatherApplicationId?: string;
 }

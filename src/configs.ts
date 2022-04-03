@@ -20,4 +20,5 @@ export const configs = {
   applicationId: BigInt(applicationIdConfig),
   token,
   memeServiceEndpoint: Deno.env.get("TNAB_MEME_SERVICE_ENDPOINT"),
+  openWeatherApplicationId: Deno.env.get("TNAB_OPEN_WEATHER_APPLICATION_ID"),
 } as Config;
