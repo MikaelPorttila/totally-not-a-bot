@@ -5,4 +5,6 @@ export interface Config {
   memeServiceEndpoint?: string;
   openWeatherApplicationId?: string;
   env: string;
+  deploymentId: string;
+  productionEndpointUrl: string;
 }

@@ -73,14 +73,15 @@ const clientBot = createBot({
       }
       console.log(`[${interactionName} Command]`, "request");
 
-      const cmd = clientBot.commands.find((_, name) =>
+      const command = clientBot.commands.find((_, name) =>
         name === interactionName
       );
-      if (!cmd) {
+
+      if (!command) {
         return;
       }
 
-      await cmd.execute(bot, interaction);
+      await command.execute(bot, interaction);
       console.log(`[${interactionName} Command]`, "executed");
     },
   },

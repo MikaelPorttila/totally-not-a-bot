@@ -7,13 +7,15 @@ export function createHandler(weatherService: WeatherService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageWords: string[]
+    normalizedMessageWords: string[],
   ) {
     if (normalizedMessageWords[0] !== trigger) {
       return;
     }
 
-    const weatherSummary = await weatherService.getSummary(DEFAULT_WEATHER_AREAS);
+    const weatherSummary = await weatherService.getSummary(
+      DEFAULT_WEATHER_AREAS,
+    );
     await sendMessage(
       bot,
       message.channelId,

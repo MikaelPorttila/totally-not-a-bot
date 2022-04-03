@@ -15,14 +15,13 @@ if (!applicationIdConfig) {
   throw "Missing applicationId";
 }
 
-const envConfig = Deno.env.get('NODE_ENV');
-console.log('Environment', envConfig);
-
 export const configs = {
   botId: BigInt(botIdConfig),
   applicationId: BigInt(applicationIdConfig),
   token,
   memeServiceEndpoint: Deno.env.get("TNAB_MEME_SERVICE_ENDPOINT"),
   openWeatherApplicationId: Deno.env.get("TNAB_OPEN_WEATHER_APPLICATION_ID"),
-  env: envConfig
+  env: Deno.env.get("NODE_ENV"),
+  deploymentId: Deno.env.get("DENO_DEPLOYMENT_ID"),
+  productionEndpointUrl: Deno.env.get("TNAB_PRODUCTION_ENDPOINT_URL"),
 } as Config;

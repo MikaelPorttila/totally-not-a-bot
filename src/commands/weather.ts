@@ -12,7 +12,9 @@ export function registerCommand(weatherService: WeatherService) {
     description: "Visa vädret för relevanta kommuner",
     type: ApplicationCommandTypes.ChatInput,
     execute: async (bot: Bot, interaction: Interaction) => {
-      const weatherSummary = await weatherService.getSummary(DEFAULT_WEATHER_AREAS);
+      const weatherSummary = await weatherService.getSummary(
+        DEFAULT_WEATHER_AREAS,
+      );
 
       await bot.helpers.sendInteractionResponse(
         interaction.id,

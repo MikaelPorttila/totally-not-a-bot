@@ -21,12 +21,12 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
   return async function (
     bot: Bot,
     message: Message,
-    normalizedMessageWords: string[]
+    normalizedMessageWords: string[],
   ) {
     for (const group of reactionTable) {
       if (
         group.reaction &&
-        group.for.some((term) => normalizedMessageWords.some(x => x === term))
+        group.for.some((term) => normalizedMessageWords.some((x) => x === term))
       ) {
         try {
           await addReaction(
