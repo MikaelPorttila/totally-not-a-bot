@@ -18,13 +18,13 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
       reaction: "🎮",
     },
     {
-      for: ['bror', 'bruh', 'bro', 'brother', 'broder'],
-      reply: "What's up?"
+      for: ["bror", "bruh", "bro", "brother", "broder"],
+      reply: "What's up?",
     },
     {
-      for: ['namn'],
-      reply: "Samma efternamn"
-    }
+      for: ["namn"],
+      reply: "Samma efternamn",
+    },
   ];
 
   return async function (
@@ -37,7 +37,7 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
         group.for.some((term) => normalizedMessageWords.some((x) => x === term))
       ) {
         try {
-          if(group.reaction) {
+          if (group.reaction) {
             await addReaction(
               bot,
               message.channelId,
@@ -61,7 +61,6 @@ export function createHandler(emojiService: EmojiService): MessageHandler {
               },
             );
           }
-
         } catch (err) {
           console.error("[Reaction Handler]", err);
         }

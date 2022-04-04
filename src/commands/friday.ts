@@ -17,7 +17,7 @@ export function registerCommand() {
         {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: 'https://www.youtube.com/watch?v=kfVsfOSbJY0',
+            content: "https://www.youtube.com/watch?v=kfVsfOSbJY0",
           },
         },
       );

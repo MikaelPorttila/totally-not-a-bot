@@ -14,7 +14,11 @@ import {
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
-import { registerFridayCommand, registerPingCommand, registerWeatherCommand } from "./commands/mod.ts";
+import {
+  registerFridayCommand,
+  registerPingCommand,
+  registerWeatherCommand,
+} from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
 let emojiService: EmojiService;

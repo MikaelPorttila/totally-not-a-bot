@@ -24,4 +24,6 @@ export const configs = {
   env: Deno.env.get("NODE_ENV"),
   deploymentId: Deno.env.get("DENO_DEPLOYMENT_ID"),
   productionEndpointUrl: Deno.env.get("TNAB_PRODUCTION_ENDPOINT_URL"),
+  graphQlEndpoint: Deno.env.get("TNAB_GRAPH_QL_ENDPOINT"),
+  graphQlAuth: Deno.env.get("TNAB_GRAPH_QL_AUTH"),
 } as Config;

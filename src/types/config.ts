@@ -7,4 +7,6 @@ export interface Config {
   env: string;
   deploymentId: string;
   productionEndpointUrl: string;
+  graphQlEndpoint: string;
+  graphQlAuth: string;
 }
