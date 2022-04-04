@@ -17,6 +17,7 @@ import type { BotClient } from "./types/bot_client.ts";
 import {
   registerFridayCommand,
   registerPingCommand,
+  registerRpgCommand,
   registerWeatherCommand,
 } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
@@ -51,6 +52,7 @@ const clientBot = createBot({
       registerPingCommand();
       registerWeatherCommand(weatherService);
       registerFridayCommand();
+      registerRpgCommand();
       console.log("[Bot]", "Registered commands");
 
       await bot.helpers.upsertApplicationCommands(
