@@ -1,6 +1,17 @@
 import type { Weather } from "./types/mod.ts";
 import { configs } from "../configs.ts";
 
+export const DEFAULT_WEATHER_AREAS = [
+  "farsta",
+  "sollentuna",
+  "vallentuna",
+  "solna",
+  "bollmora",
+  "vasastaden",
+  "Kårböle",
+  "högdalen"
+];
+
 export async function getWeather(
   cityName: string,
   country: string = "se",
@@ -54,13 +65,3 @@ function getWeatherSymbol(description: string): string | undefined {
       return undefined;
   }
 }
-
-export const DEFAULT_WEATHER_AREAS = [
-  "farsta",
-  "sollentuna",
-  "vallentuna",
-  "solna",
-  "bollmora",
-  "vasastaden",
-  "Kårböle",
-];
