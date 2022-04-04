@@ -33,6 +33,7 @@ export async function getUserByDiscordId(
   const data = await queryOrMutation<{ queryUser: User }>(query, {
     eq: discordUserId.toString(),
   });
+
   return data?.queryUser as User;
 }
 

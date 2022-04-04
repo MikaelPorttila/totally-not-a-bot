@@ -1,17 +1,17 @@
 import { addReaction, sendMessage } from "../../deps.ts";
 import type { Bot, Message } from "../../deps.ts";
-import { EmojiService } from "../services/mod.ts";
 import { MessageHandler } from "./types/mod.ts";
+import { getEmojiReactionName } from "../services/emoji_service.ts";
 
-export function createHandler(emojiService: EmojiService): MessageHandler {
+export function createHandler(): MessageHandler {
   const reactionTable = [
     {
       for: ["micke", "mikael", "sture"],
-      reaction: emojiService.getReactionName("intplus"),
+      reaction: getEmojiReactionName("intplus"),
     },
     {
       for: ["epi"],
-      reaction: emojiService.getReactionName("epi"),
+      reaction: getEmojiReactionName("epi"),
     },
     {
       for: ["cod", "snarkov", "tarkov", "cs", "stridsåker", "bf"],

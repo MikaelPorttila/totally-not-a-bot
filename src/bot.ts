@@ -1,4 +1,4 @@
-import { Collection, createBot } from "../deps.ts";
+import { Collection, createBot, getEmojis } from "../deps.ts";
 import type {
   Bot,
   CreateApplicationCommand,
@@ -6,11 +6,6 @@ import type {
   Message,
 } from "../deps.ts";
 import { createReactionHandler, createWeatherHandler } from "./handlers/mod.ts";
-import {
-  createEmojiService,
-  EmojiService,
-  WeatherService,
-} from "./services/mod.ts";
 import { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -22,8 +17,6 @@ import {
 } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
-let emojiService: EmojiService;
-let weatherService: WeatherService;
 let handlers: MessageHandler[];
 
 const clientBot = createBot({
@@ -37,20 +30,19 @@ const clientBot = createBot({
       const guildId = payload.guilds[0] as bigint;
 
       console.log("[Bot]", "Register services");
-      emojiService = await createEmojiService(bot, guildId);
-      weatherService = new WeatherService(configs);
+      clientBot.emojis = await getEmojis(bot, guildId);
       console.log("[Bot]", "Register services completed");
 
       console.log("[Bot]", "Register message handlers");
       handlers = [
-        createReactionHandler(emojiService),
-        createWeatherHandler(weatherService),
+        createReactionHandler(),
+        createWeatherHandler(),
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
       console.log("[Bot]", "Register commands");
       registerPingCommand();
-      registerWeatherCommand(weatherService);
+      registerWeatherCommand();
       registerFridayCommand();
       registerRpgCommand();
       console.log("[Bot]", "Registered commands");

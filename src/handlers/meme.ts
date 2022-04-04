@@ -1,8 +1,8 @@
 import { Bot, deleteMessage, Message, sendMessage } from "../../deps.ts";
-import { MemeService } from "../services/meme_service.ts";
+import { queryMeme } from "../services/mod.ts";
 import { MessageHandler } from "./types/mod.ts";
 
-export function createHandler(memeService: MemeService): MessageHandler {
+export function createHandler(): MessageHandler {
   const trigger = "!meme";
 
   return async function (
@@ -16,7 +16,7 @@ export function createHandler(memeService: MemeService): MessageHandler {
     console.log("[Meme Message Handle] triggered");
 
     const queryText = message.content.replace(trigger + " ", "").trim();
-    const meme = await memeService.query(queryText);
+    const meme = await queryMeme(queryText);
 
     await deleteMessage(
       bot,

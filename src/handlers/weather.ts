@@ -1,8 +1,8 @@
 import { Bot, Message, sendMessage } from "../../deps.ts";
-import { DEFAULT_WEATHER_AREAS, WeatherService } from "../services/mod.ts";
+import { DEFAULT_WEATHER_AREAS, getWeatherSummary } from "../services/mod.ts";
 import { MessageHandler } from "./types/mod.ts";
 
-export function createHandler(weatherService: WeatherService): MessageHandler {
+export function createHandler(): MessageHandler {
   const trigger = "!wääder";
   return async function (
     bot: Bot,
@@ -13,9 +13,7 @@ export function createHandler(weatherService: WeatherService): MessageHandler {
       return;
     }
 
-    const weatherSummary = await weatherService.getSummary(
-      DEFAULT_WEATHER_AREAS,
-    );
+    const weatherSummary = await getWeatherSummary(DEFAULT_WEATHER_AREAS);
     await sendMessage(
       bot,
       message.channelId,

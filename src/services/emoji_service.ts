@@ -1,29 +1,17 @@
-import type { Bot, Collection, Emoji } from "../../deps.ts";
-import { getEmojis } from "../../deps.ts";
+import type { Emoji } from "../../deps.ts";
 import { getReactionEmoji } from "../helpers/emoji_helper.ts";
+import { bot } from "../bot.ts";
 
-export class EmojiService {
-  constructor(private cache: Collection<bigint, Emoji>) {}
-
-  get(name: string): Emoji | undefined {
-    if (!name) {
-      return undefined;
-    }
-
-    const emoji = this.cache.find((emoji) => emoji.name === name);
-    return emoji;
+export function getEmoji(name: string): Emoji | undefined {
+  if (!name) {
+    return undefined;
   }
 
-  getReactionName(name: string) {
-    const emoji = this.get(name);
-    return emoji ? getReactionEmoji(emoji) : undefined;
-  }
+  const emoji = bot.emojis.find((emoji) => emoji.name === name);
+  return emoji;
 }
 
-export async function createEmojiService(
-  bot: Bot,
-  guildId: bigint,
-): Promise<EmojiService> {
-  const guildEmojis = await getEmojis(bot, guildId);
-  return new EmojiService(guildEmojis);
+export function getEmojiReactionName(name: string) {
+  const emoji = getEmoji(name);
+  return emoji ? getReactionEmoji(emoji) : undefined;
 }
