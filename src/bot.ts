@@ -14,6 +14,7 @@ import {
   registerPingCommand,
   registerRpgCommand,
   registerWeatherCommand,
+  registerGiffTextCommand
 } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
@@ -45,6 +46,7 @@ const clientBot = createBot({
       registerWeatherCommand();
       registerFridayCommand();
       registerRpgCommand();
+      registerGiffTextCommand();
       console.log("[Bot]", "Registered commands");
 
       await bot.helpers.upsertApplicationCommands(
@@ -60,6 +62,7 @@ const clientBot = createBot({
       if (!messageText) {
         return;
       }
+
       const messageWords = messageText.split(/\s+|\./);
       for (const handler of handlers) {
         await handler(bot, message, messageWords);
@@ -83,6 +86,7 @@ const clientBot = createBot({
       await command.execute(bot, interaction);
       console.log(`[${interactionName} Command]`, "executed");
     },
+
   },
 }) as BotClient;
 

@@ -12,9 +12,11 @@ export const DEFAULT_WEATHER_AREAS = [
   "högdalen"
 ];
 
+const DEFAULT_COUNTRY = "se";
+
 export async function getWeather(
   cityName: string,
-  country: string = "se",
+  country = DEFAULT_COUNTRY,
 ): Promise<Weather> {
   const url =
     `https://api.openweathermap.org/data/2.5/weather?q=${cityName},${country}&appid=${configs.openWeatherApplicationId}&units=metric`;
@@ -25,7 +27,7 @@ export async function getWeather(
 
 export async function getWeatherSummary(
   cities: string[],
-  country = "se",
+  country = DEFAULT_COUNTRY,
 ): Promise<string> {
   const requests = cities.map((city) => getWeather(city, country));
   const weatherDataCollection = await Promise.all(requests);

@@ -17,7 +17,7 @@ export function registerCommand() {
         {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: `Ping!`,
+            content: `Pong!`,
           },
         },
       );
