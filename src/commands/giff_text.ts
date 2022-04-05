@@ -8,19 +8,21 @@ import {
   
   export function registerCommand() {
     createCommand({
-      name: "giff text",
+      name: "giff-text",
       description: "Image to text",
       type: ApplicationCommandTypes.ChatInput,
       execute: async (bot: Bot, interaction: Interaction) => {
 
-        if (interaction?.guildId) {
+        if (interaction?.channelId) {
             const messages = await getMessages(
                 bot,
-                interaction?.guildId,
+                interaction?.channelId,
                 { 
                     limit: 1
                 }
             );
+
+            const targetMessage = messages[0];
 
             await bot.helpers.sendInteractionResponse(
                 interaction.id,
@@ -28,7 +30,7 @@ import {
                 {
                   type: InteractionResponseTypes.ChannelMessageWithSource,
                   data: {
-                    content: messages[0].content,
+                    content: `${targetMessage.content}, ${targetMessage.attachments?.length || 0} attachments`,
                   },
                 },
             );
