@@ -1,7 +1,8 @@
 import {
     ApplicationCommandTypes,
     InteractionResponseTypes,
-    getMessages
+    getMessages,
+    sendMessage
   } from "../../deps.ts";
   import type { Bot, Interaction } from "../../deps.ts";
   import { createCommand } from "../helpers/command_helper.ts";
@@ -23,15 +24,18 @@ import { getImageText } from "../services/ocr_service.ts";
             
             const attachment = messages?.[0]?.attachments?.[0];
             if (attachment && isImage(attachment.contentType)) {
-              const content = await getImageText(attachment.proxyUrl);
+              const processImage = getImageText(attachment.proxyUrl);
               await bot.helpers.sendInteractionResponse(
                 interaction.id,
                 interaction.token,
                 {
                   type: InteractionResponseTypes.ChannelMessageWithSource,
-                  data: { content },
+                  data: { content: '🤖 Analyserar pixlarna... här har du en äggplanta medans: 🍆' },
                 },
               );
+
+              const imageText = await processImage;
+              await sendMessage(bot, interaction.channelId, {content: `Text: ${imageText}`});
             } else {
               await bot.helpers.sendInteractionResponse(
                 interaction.id,
