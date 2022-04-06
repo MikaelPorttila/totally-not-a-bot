@@ -9,4 +9,5 @@ export interface Config {
   productionEndpointUrl: string;
   graphQlEndpoint: string;
   graphQlAuth: string;
+  ocrServiceApplicationAuth: string;
 }

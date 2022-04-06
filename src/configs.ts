@@ -26,4 +26,5 @@ export const configs = {
   productionEndpointUrl: Deno.env.get("TNAB_PRODUCTION_ENDPOINT_URL"),
   graphQlEndpoint: Deno.env.get("TNAB_GRAPH_QL_ENDPOINT"),
   graphQlAuth: Deno.env.get("TNAB_GRAPH_QL_AUTH"),
+  ocrServiceApplicationAuth: Deno.env.get("TNAB_OCR_SERVICE_APPLICATION_AUTH"),
 } as Config;
