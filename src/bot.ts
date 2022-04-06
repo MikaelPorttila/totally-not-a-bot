@@ -14,7 +14,8 @@ import {
   registerPingCommand,
   registerRpgCommand,
   registerWeatherCommand,
-  registerGiffTextCommand
+  registerGiffTextCommand,
+  registerBangerCommand
 } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
@@ -47,6 +48,7 @@ const clientBot = createBot({
       registerFridayCommand();
       registerRpgCommand();
       registerGiffTextCommand();
+      registerBangerCommand();
       console.log("[Bot]", "Registered commands");
 
       await bot.helpers.upsertApplicationCommands(
