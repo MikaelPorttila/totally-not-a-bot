@@ -1,4 +1,4 @@
-FROM denoland/deno:1.10.3
+FROM denoland/deno
 
 EXPOSE 1993
 
@@ -10,6 +10,6 @@ COPY deps.ts .
 RUN deno cache deps.ts
 
 ADD . .
-RUN deno cache main.ts
+RUN deno cache ./src/mod.ts
 
 CMD ["run", "--allow-net", "--allow-env", "./src/mod.ts"]
