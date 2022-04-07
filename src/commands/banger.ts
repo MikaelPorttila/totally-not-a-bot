@@ -14,7 +14,7 @@ export function registerCommand() {
     "https://www.youtube.com/watch?v=nADTbWQof7Y", // Your Man
     "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Never gonna...
     "https://www.youtube.com/watch?v=FggsEkPQEbc", // Hoff song
-			 "https://www.youtube.com/watch?v=CdKVX45wYeQ" // Hasselhoff
+    "https://www.youtube.com/watch?v=CdKVX45wYeQ" // Hasselhoff
   ];
 
   createCommand({
