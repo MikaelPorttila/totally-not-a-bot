@@ -23,7 +23,7 @@ export function createHandler(): MessageHandler {
     },
     {
       for: ["namn"],
-      reply: "Samma efternamn",
+      reply: "efternamn",
     },
   ];
 
