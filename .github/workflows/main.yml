@@ -1,0 +1,16 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: denolib/setup-deno@master
+      with:
+        deno-version: v1.x
+    - run: deno test --allow-net --allow-env ./src/mod.ts
