@@ -1,6 +1,7 @@
-import { Bot, deleteMessage, Message, sendMessage } from "../../deps.ts";
+import { deleteMessage, sendMessage } from "../../deps.ts";
+import type { Bot, Message } from "../../deps.ts";
 import { queryMeme } from "../services/mod.ts";
-import { MessageHandler } from "./types/mod.ts";
+import type { MessageHandler } from "./types/mod.ts";
 
 export function createHandler(): MessageHandler {
   const trigger = "!meme";

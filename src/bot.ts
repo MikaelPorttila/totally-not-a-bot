@@ -6,17 +6,10 @@ import type {
   Message,
 } from "../deps.ts";
 import { createReactionHandler, createWeatherHandler } from "./handlers/mod.ts";
-import { MessageHandler } from "./handlers/types/mod.ts";
+import type { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
-import {
-  registerFridayCommand,
-  registerPingCommand,
-  registerRpgCommand,
-  registerWeatherCommand,
-  registerGiffTextCommand,
-  registerBangerCommand
-} from "./commands/mod.ts";
+import { registerCommands } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 
 let handlers: MessageHandler[];
@@ -30,26 +23,16 @@ const clientBot = createBot({
     async ready(bot: Bot, payload) {
       console.log("[Bot]", "Starting...");
       const guildId = payload.guilds[0] as bigint;
-
-      console.log("[Bot]", "Register services");
       clientBot.emojis = await getEmojis(bot, guildId);
-      console.log("[Bot]", "Register services completed");
 
       console.log("[Bot]", "Register message handlers");
       handlers = [
         createReactionHandler(),
-        createWeatherHandler(),
+        createWeatherHandler()
       ];
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
-      console.log("[Bot]", "Register commands");
-      registerPingCommand();
-      registerWeatherCommand();
-      registerFridayCommand();
-      registerRpgCommand();
-      registerGiffTextCommand();
-      registerBangerCommand();
-      console.log("[Bot]", "Registered commands");
+      registerCommands();
 
       await bot.helpers.upsertApplicationCommands(
         clientBot.commands.array() as CreateApplicationCommand[],
@@ -85,8 +68,13 @@ const clientBot = createBot({
         return;
       }
 
-      await command.execute(bot, interaction);
-      console.log(`[${interactionName} Command]`, "executed");
+      try {
+        await command.execute(bot, interaction);
+        console.log(`[${interactionName} Command] executed`);
+      }
+      catch(err) {
+        console.error(`[${interactionName} Command] Failed`, err);
+      }
     },
 
   },

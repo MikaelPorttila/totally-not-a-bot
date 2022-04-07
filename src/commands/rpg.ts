@@ -5,8 +5,7 @@ import {
 } from "../../deps.ts";
 import type { 
   Bot,
-  Interaction,
-  ApplicationCommandOption
+  Interaction
 } from "../../deps.ts";
 import { createCommand } from "../helpers/command_helper.ts";
 

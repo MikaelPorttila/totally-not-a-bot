@@ -1,6 +1,6 @@
-import { addReaction, sendMessage } from "../../deps.ts";
 import type { Bot, Message } from "../../deps.ts";
-import { MessageHandler } from "./types/mod.ts";
+import type { MessageHandler } from "./types/mod.ts";
+import { addReaction, sendMessage } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
 
 export function createHandler(): MessageHandler {
