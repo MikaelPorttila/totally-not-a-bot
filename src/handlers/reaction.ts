@@ -23,12 +23,12 @@ export function createHandler(): MessageHandler {
     },
     {
       for: ["namn"],
-      reply: "Samma efternamn",
+      reply: "efternamn",
     },
     {
       for: ["efternamn"],
-      reply: "https://youtu.be/esVuKP7k974?t=95"
-    }
+      reply: "https://youtu.be/esVuKP7k974?t=95",
+    },
   ];
 
   return async function (

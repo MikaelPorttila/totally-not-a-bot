@@ -1,9 +1,9 @@
-import { startBot, serve } from "../deps.ts";
+import { serve, startBot } from "../deps.ts";
 import { bot } from "./bot.ts";
 
 const port = 1993;
 const requestHandler = (_: Request): Response => {
-  return new Response('🙈', { status: 200 });
+  return new Response("🙈", { status: 200 });
 };
 
 const server = serve(requestHandler, { port });

@@ -1,3 +1,4 @@
+import { toBoolean } from "./helpers/boolean_helper.ts";
 import type { Config } from "./types/mod.ts";
 
 const botIdConfig = Deno.env.get("TNAB_BOT_ID");
@@ -27,4 +28,13 @@ export const configs = {
   graphQlEndpoint: Deno.env.get("TNAB_GRAPH_QL_ENDPOINT"),
   graphQlAuth: Deno.env.get("TNAB_GRAPH_QL_AUTH"),
   ocrServiceApplicationAuth: Deno.env.get("TNAB_OCR_SERVICE_APPLICATION_AUTH"),
+  featureToggles: {
+    banger: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_BANGER"), true),
+    friday: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_FRIDAY"), true),
+    giffText: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_GIFF_TEXT"), true),
+    ping: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_PING"), true),
+    rpg: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_RPG"), true),
+    meme: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_MEME"), true),
+    reactions: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_REACTIONS"), true),
+  },
 } as Config;
