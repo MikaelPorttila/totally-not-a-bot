@@ -1,3 +1,5 @@
+import type { FeatureToggles } from "./feature_toggles.ts";
+
 export interface Config {
   botId: bigint;
   applicationId: bigint;
@@ -10,4 +12,5 @@ export interface Config {
   graphQlEndpoint: string;
   graphQlAuth: string;
   ocrServiceApplicationAuth: string;
+  featureToggles: FeatureToggles;
 }

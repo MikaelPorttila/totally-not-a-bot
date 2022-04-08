@@ -9,7 +9,7 @@ export const DEFAULT_WEATHER_AREAS = [
   "bollmora",
   "vasastaden",
   "Kårböle",
-  "högdalen"
+  "högdalen",
 ];
 
 const DEFAULT_COUNTRY = "se";

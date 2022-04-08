@@ -5,7 +5,7 @@ import type {
   Interaction,
   Message,
 } from "../deps.ts";
-import { createReactionHandler, createWeatherHandler } from "./handlers/mod.ts";
+import { createReactionHandler } from "./handlers/mod.ts";
 import type { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -26,10 +26,14 @@ const clientBot = createBot({
       clientBot.emojis = await getEmojis(bot, guildId);
 
       console.log("[Bot]", "Register message handlers");
-      handlers = [
-        createReactionHandler(),
-        createWeatherHandler()
-      ];
+      handlers = [];
+
+      if (configs.featureToggles.reactions) {
+        handlers.push(createReactionHandler());
+      } else {
+        console.log("Skipped Reaction handler due to feature toggle");
+      }
+
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
       registerCommands();
@@ -71,12 +75,10 @@ const clientBot = createBot({
       try {
         await command.execute(bot, interaction);
         console.log(`[${interactionName} Command] executed`);
-      }
-      catch(err) {
+      } catch (err) {
         console.error(`[${interactionName} Command] Failed`, err);
       }
     },
-
   },
 }) as BotClient;
 
