@@ -8,7 +8,8 @@ export async function getUsers(): Promise<User[]> {
         queryUser(offset: 0) {
             id
             discordId
-            name
+            username
+            counter
         }
     }`;
 
@@ -25,16 +26,15 @@ export async function getUserByDiscordId(
             counter
             discordId
             id
-            name
             username
         }
     }`;
 
-  const data = await queryOrMutation<{ queryUser: User }>(query, {
+  const data = await queryOrMutation<{ queryUser: User[] }>(query, {
     eq: discordUserId.toString(),
   });
 
-  return data?.queryUser as User;
+  return data?.queryUser?.[0] as User;
 }
 
 export async function getUserByUsername(
@@ -46,27 +46,26 @@ export async function getUserByUsername(
             counter
             discordId
             id
-            name
             username
         }
     }`;
 
-  const data = await queryOrMutation<{ queryUser: User }>(
+  const data = await queryOrMutation<{ queryUser: User[] }>(
     query,
     { eq: username },
   );
 
-  return data?.queryUser as User;
+  return data?.queryUser?.[0] as User;
 }
 
 export async function addUser(user: User): Promise<void> {
   const mutation = gql`
-    mutation addUser($discordId: Int64!, $name: String) {
-        addUser(input: { discordId: $discordId, name: $name }) {
+    mutation addUser($discordId: String!, $username: String) {
+        addUser(input: { discordId: $discordId, username: $username }) {
             user {
                 id,
                 discordId,
-                name
+                username
             }
         }
     }`;

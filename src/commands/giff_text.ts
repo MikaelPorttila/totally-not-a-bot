@@ -2,6 +2,7 @@ import {
   ApplicationCommandTypes,
   InteractionResponseTypes,
   sendMessage,
+  deleteMessage
 } from "../../deps.ts";
 import type { Bot, Interaction } from "../../deps.ts";
 import { createCommand } from "../helpers/command_helper.ts";
@@ -22,14 +23,14 @@ export function registerCommand() {
         );
         if (attachment && isImage(attachment.contentType)) {
           const processImage = getImageText(attachment.proxyUrl);
-          await bot.helpers.sendInteractionResponse(
+          const message = await bot.helpers.sendInteractionResponse(
             interaction.id,
             interaction.token,
             {
               type: InteractionResponseTypes.ChannelMessageWithSource,
               data: {
                 content:
-                  "🤖 Analyserar pixlarna... här har du en äggplanta medans: 🍆",
+                  "🤖 Analyserar pixlarna...",
               },
             },
           );
@@ -38,6 +39,10 @@ export function registerCommand() {
           await sendMessage(bot, interaction.channelId, {
             content: `Text: ${imageText}`,
           });
+
+          if (message) {
+            await deleteMessage(bot, message.channelId, message.id);
+          }
         } else {
           await bot.helpers.sendInteractionResponse(
             interaction.id,

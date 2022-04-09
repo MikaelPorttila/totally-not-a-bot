@@ -10,7 +10,7 @@ export interface Config {
   deploymentId: string;
   productionEndpointUrl: string;
   graphQlEndpoint: string;
-  graphQlAuth: string;
+  graphQlApiKey: string;
   ocrServiceApplicationAuth: string;
   featureToggles: FeatureToggles;
 }

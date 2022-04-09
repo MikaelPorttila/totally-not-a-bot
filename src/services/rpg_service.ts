@@ -28,7 +28,7 @@ export async function registerRpgUser(
   if (user) {
     return {
       success: false,
-      message: "Discord account has already been registered.",
+      message: `Discord account has already been registered as "${user.username}"`,
     } as RegisterUserResult;
   }
 
@@ -41,7 +41,6 @@ export async function registerRpgUser(
   }
 
   await addUser({
-    name: username,
     username: username,
     discordId: discordUserId.toString(),
   } as User);

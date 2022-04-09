@@ -26,7 +26,7 @@ export const configs = {
   deploymentId: Deno.env.get("DENO_DEPLOYMENT_ID"),
   productionEndpointUrl: Deno.env.get("TNAB_PRODUCTION_ENDPOINT_URL"),
   graphQlEndpoint: Deno.env.get("TNAB_GRAPH_QL_ENDPOINT"),
-  graphQlAuth: Deno.env.get("TNAB_GRAPH_QL_AUTH"),
+  graphQlApiKey: Deno.env.get("TNAB_GRAPH_QL_API_KEY"),
   ocrServiceApplicationAuth: Deno.env.get("TNAB_OCR_SERVICE_APPLICATION_AUTH"),
   featureToggles: {
     banger: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_BANGER"), true),
