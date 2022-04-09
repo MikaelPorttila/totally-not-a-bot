@@ -1,7 +1,7 @@
 import { Bot, createChannel, getChannels, Message } from "../../deps.ts";
 import type { MessageHandler } from "./types/mod.ts";
 import { sendMessage } from "../../deps.ts";
-import { registerRpgUser } from "../services/mod.ts";
+import { getRpgUserSummary, getUserByDiscordId, registerRpgUser } from "../services/mod.ts";
 
 export async function createHandler(
   bot: Bot,
@@ -68,7 +68,6 @@ export async function createHandler(
           }
         }
         break;
-
       case RpgCommand.Help:
         await sendMessage(
           bot,
@@ -86,6 +85,39 @@ export async function createHandler(
           },
         );
         break;
+      case RpgCommand.Stats: {
+        const user = await getUserByDiscordId(message.authorId);
+        if (user) {
+          await sendMessage(
+            bot,
+            message.channelId,
+            {
+              content: getRpgUserSummary(user),
+              messageReference: {
+                channelId: message.channelId,
+                guildId: message.guildId,
+                messageId: message.id,
+                failIfNotExists: false,
+              },
+            },
+          );
+        } else {
+          await sendMessage(
+            bot,
+            message.channelId,
+            {
+              content: 'You are not registered yet. Use the register <name> command to join.',
+              messageReference: {
+                channelId: message.channelId,
+                guildId: message.guildId,
+                messageId: message.id,
+                failIfNotExists: false,
+              },
+            },
+          );
+        }
+        }  
+        break;
     }
   };
 }
@@ -93,4 +125,5 @@ export async function createHandler(
 enum RpgCommand {
   Register = "register",
   Help = "help",
+  Stats = "stats"
 }

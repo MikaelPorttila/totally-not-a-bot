@@ -43,7 +43,24 @@ export async function registerRpgUser(
   await addUser({
     username: username,
     discordId: discordUserId.toString(),
+    exp: 0,
+    gold: 0,
+    stamina: 5,
+    region: 0,
+    posX: 5,
+    posY: 5
   } as User);
 
   return { success: true };
+}
+
+export function getRpgUserSummary(user: User) {
+  let result = `**${user.username}**\n`;
+  result += `Exp: ${user.exp}\n`;
+  result += `Gold: ${user.gold}\n`
+  result += `Region: ${user.region}\n`
+  result += `PosX: ${user.posX}\n`;
+  result += `PosY: ${user.posY}`;
+
+  return result;
 }

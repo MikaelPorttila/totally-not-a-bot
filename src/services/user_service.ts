@@ -27,6 +27,13 @@ export async function getUserByDiscordId(
             discordId
             id
             username
+            region
+            gold
+            posX
+            posY
+            exp
+            stamina
+            region
         }
     }`;
 
@@ -34,7 +41,34 @@ export async function getUserByDiscordId(
     eq: discordUserId.toString(),
   });
 
-  return data?.queryUser?.[0] as User;
+  const user = data?.queryUser?.[0] as User;
+  if (user) {
+    if (user.gold === null) {
+      user.gold = 0;
+    }
+
+    if (user.exp === null) {
+      user.exp = 0;
+    }
+
+    if (user.region === null) {
+      user.region = 0;
+    }
+
+    if (user.posX === null) {
+      user.posX = 0;
+    }
+
+    if (user.posY === null) {
+      user.posY = 0;
+    }
+
+    if (user.stamina === null) {
+      user.stamina = 0;
+    }
+  }
+
+  return user
 }
 
 export async function getUserByUsername(
@@ -65,7 +99,14 @@ export async function addUser(user: User): Promise<void> {
             user {
                 id,
                 discordId,
-                username
+                username,
+                exp,
+                gold,
+                region,
+                exp,
+                posx,
+                posy,
+                stamina
             }
         }
     }`;
