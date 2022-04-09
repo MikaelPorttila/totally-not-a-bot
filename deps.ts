@@ -1,6 +1,7 @@
 // Credit:
 export type {
   ApplicationCommandOption,
+  Attachment,
   Bot,
   Channel,
   CreateApplicationCommand,
