@@ -1,6 +1,5 @@
 import {
   ApplicationCommandTypes,
-  getMessages,
   InteractionResponseTypes,
   sendMessage,
 } from "../../deps.ts";
@@ -8,6 +7,7 @@ import type { Bot, Interaction } from "../../deps.ts";
 import { createCommand } from "../helpers/command_helper.ts";
 import { isImage } from "../helpers/file_helper.ts";
 import { getImageText } from "../services/ocr_service.ts";
+import { getFirstAttachment } from "../services/channel_Service.ts";
 
 export function registerCommand() {
   createCommand({
@@ -16,13 +16,10 @@ export function registerCommand() {
     type: ApplicationCommandTypes.ChatInput,
     execute: async (bot: Bot, interaction: Interaction) => {
       if (interaction?.channelId) {
-        const messages = await getMessages(
+        const attachment = await getFirstAttachment(
           bot,
           interaction?.channelId,
-          { limit: 1 },
         );
-
-        const attachment = messages?.[0]?.attachments?.[0];
         if (attachment && isImage(attachment.contentType)) {
           const processImage = getImageText(attachment.proxyUrl);
           await bot.helpers.sendInteractionResponse(
