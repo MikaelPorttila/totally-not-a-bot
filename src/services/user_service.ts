@@ -68,7 +68,7 @@ export async function getUserByDiscordId(
     }
   }
 
-  return user
+  return user;
 }
 
 export async function getUserByUsername(
@@ -112,6 +112,57 @@ export async function addUser(user: User): Promise<void> {
     }`;
 
   await queryOrMutation<void>(mutation, { ...user });
+}
+
+export async function updateUserState(user: User): Promise<void> {
+  const mutation = gql`
+    mutation UpdateUserState(
+      $eq: String,
+      $exp: Float,
+      $gold: Int,
+      $posX: Int,
+      $posY: Int,
+      $region: Int,
+      $stamina: Int
+    ) {
+      updateUser(
+        input: {
+          filter: {
+            discordId: {eq: $eq}
+          }, 
+          set: {
+            exp: $exp,
+            gold: $gold,
+            posX: $posX,
+            posY: $posY,
+            region: $region,
+            stamina: $stamina
+          }
+        }
+      ) {
+        user {
+          gold
+          id
+          posX
+          posY
+          region
+          stamina
+          exp
+        }
+      }
+    }`;
+
+  const vars = {
+    eq: user.discordId,
+    exp: user.exp,
+    gold: user.gold,
+    posX: user.posX,
+    posY: user.posY,
+    region: user.region,
+    stamina: user.stamina,
+  };
+
+  await queryOrMutation<void>(mutation, vars);
 }
 
 export async function deleteUser(user: User): Promise<void> {

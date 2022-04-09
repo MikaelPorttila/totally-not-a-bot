@@ -2,6 +2,7 @@ import type { Bot, Message } from "../../deps.ts";
 import type { MessageHandler } from "./types/mod.ts";
 import { addReaction, sendMessage } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
+import { replyToMessage } from "../services/mod.ts";
 
 export function createHandler(): MessageHandler {
   const reactionTable = [
@@ -51,19 +52,7 @@ export function createHandler(): MessageHandler {
           }
 
           if (group.reply) {
-            await sendMessage(
-              bot,
-              message.channelId,
-              {
-                content: group.reply,
-                messageReference: {
-                  channelId: message.channelId,
-                  guildId: message.guildId,
-                  messageId: message.id,
-                  failIfNotExists: false,
-                },
-              },
-            );
+            replyToMessage(bot, message, group.reply);
           }
         } catch (err) {
           console.error("[Reaction Handler]", err);

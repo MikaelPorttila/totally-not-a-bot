@@ -35,9 +35,3 @@ export function registerCommand() {
     ],
   });
 }
-
-enum Actions {
-  Register = "Register",
-  State = "State",
-  Help = "Help",
-}

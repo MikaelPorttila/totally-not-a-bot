@@ -1,8 +1,8 @@
 import {
   ApplicationCommandTypes,
+  deleteMessage,
   InteractionResponseTypes,
   sendMessage,
-  deleteMessage
 } from "../../deps.ts";
 import type { Bot, Interaction } from "../../deps.ts";
 import { createCommand } from "../helpers/command_helper.ts";
@@ -29,8 +29,7 @@ export function registerCommand() {
             {
               type: InteractionResponseTypes.ChannelMessageWithSource,
               data: {
-                content:
-                  "🤖 Analyserar pixlarna...",
+                content: "🤖 Analyserar pixlarna...",
               },
             },
           );

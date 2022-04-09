@@ -1,7 +1,23 @@
-import { Bot, createChannel, getChannels, Message } from "../../deps.ts";
+import {
+  addReaction,
+  Bot,
+  createChannel,
+  getChannels,
+  Message,
+} from "../../deps.ts";
 import type { MessageHandler } from "./types/mod.ts";
-import { sendMessage } from "../../deps.ts";
-import { getRpgUserSummary, getUserByDiscordId, registerRpgUser } from "../services/mod.ts";
+import {
+  executeRpgCommand,
+  getRpgUserSummary,
+  getUserByDiscordId,
+  registerRpgUser,
+  replyToMessage,
+} from "../services/mod.ts";
+import type { User } from "../services/types/mod.ts";
+import { RpgCommand } from "../services/types/rpg_command.ts";
+
+const MESSAGE_NOT_REGISTERED =
+  "You are not registered yet. Use the register <name> command to join.";
 
 export async function createHandler(
   bot: Bot,
@@ -26,104 +42,52 @@ export async function createHandler(
       return;
     }
 
-    switch (normalizedMessageWords[0]) {
+    const [command, ...parameters] = normalizedMessageWords;
+    let msg: string | undefined;
+    let user: User | undefined;
+    let successful = false;
+    switch (command) {
+      case RpgCommand.Move:
+        user = await getUserByDiscordId(message.authorId);
+        if (!user) {
+          await replyToMessage(bot, message, MESSAGE_NOT_REGISTERED);
+          return;
+        }
+
+        try {
+          successful = await executeRpgCommand(command, user, parameters);
+          addReaction(
+            bot,
+            message.channelId,
+            message.id,
+            successful ? "✅" : "❌",
+          );
+        } catch {
+          addReaction(bot, message.channelId, message.id, "❌");
+        }
+        break;
+      case RpgCommand.Stats:
+        user = await getUserByDiscordId(message.authorId);
+        await replyToMessage(
+          bot,
+          message,
+          user ? getRpgUserSummary(user) : MESSAGE_NOT_REGISTERED,
+        );
+        break;
       case RpgCommand.Register:
         {
-          let username = "";
-          if (normalizedMessageWords.length > 1) {
-            username = normalizedMessageWords[1];
-          }
-          const registrationResult = await registerRpgUser(
-            username,
-            message.authorId,
-          );
-          if (registrationResult?.success) {
-            await sendMessage(
-              bot,
-              message.channelId,
-              {
-                content: `⚔️ Welcome ${username} to The World of Wääw ⚔️`,
-                messageReference: {
-                  channelId: message.channelId,
-                  guildId: message.guildId,
-                  messageId: message.id,
-                  failIfNotExists: false,
-                },
-              },
-            );
-          } else {
-            await sendMessage(
-              bot,
-              message.channelId,
-              {
-                content: registrationResult?.message,
-                messageReference: {
-                  channelId: message.channelId,
-                  guildId: message.guildId,
-                  messageId: message.id,
-                  failIfNotExists: false,
-                },
-              },
-            );
-          }
+          const res = await registerRpgUser(parameters?.[0], message.authorId);
+          msg = res?.success
+            ? `⚔️ Welcome ${parameters?.[0]} to The World of Wääw ⚔️`
+            : res?.message;
+          await replyToMessage(bot, message, msg);
         }
         break;
       case RpgCommand.Help:
-        await sendMessage(
-          bot,
-          message.channelId,
-          {
-            content: "" +
-              "register <name> - Step into the World of Wääw\n" +
-              "help - List commands",
-            messageReference: {
-              channelId: message.channelId,
-              guildId: message.guildId,
-              messageId: message.id,
-              failIfNotExists: false,
-            },
-          },
-        );
-        break;
-      case RpgCommand.Stats: {
-        const user = await getUserByDiscordId(message.authorId);
-        if (user) {
-          await sendMessage(
-            bot,
-            message.channelId,
-            {
-              content: getRpgUserSummary(user),
-              messageReference: {
-                channelId: message.channelId,
-                guildId: message.guildId,
-                messageId: message.id,
-                failIfNotExists: false,
-              },
-            },
-          );
-        } else {
-          await sendMessage(
-            bot,
-            message.channelId,
-            {
-              content: 'You are not registered yet. Use the register <name> command to join.',
-              messageReference: {
-                channelId: message.channelId,
-                guildId: message.guildId,
-                messageId: message.id,
-                failIfNotExists: false,
-              },
-            },
-          );
-        }
-        }  
+        msg = "register <name> - Step into the World of Wääw\n" +
+          "help - List commands";
+        await replyToMessage(bot, message, msg);
         break;
     }
   };
-}
-
-enum RpgCommand {
-  Register = "register",
-  Help = "help",
-  Stats = "stats"
 }

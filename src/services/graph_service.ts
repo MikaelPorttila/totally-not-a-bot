@@ -5,7 +5,7 @@ const DGRAPH_ENDPOINT_AUTH_HEADER = "DG-Auth";
 
 const DEFAULT_HEADERS = {
   "Content-Type": "application/json",
-  [DGRAPH_ENDPOINT_AUTH_HEADER]: configs.graphQlApiKey
+  [DGRAPH_ENDPOINT_AUTH_HEADER]: configs.graphQlApiKey,
 };
 
 export async function queryOrMutation<T>(

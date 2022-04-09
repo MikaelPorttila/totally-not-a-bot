@@ -1,9 +1,11 @@
 import type { RegisterUserResult } from "./types/rpg.ts";
+import { RpgCommand } from "./types/rpg_command.ts";
 import type { User } from "./types/user.ts";
 import {
   addUser,
   getUserByDiscordId,
   getUserByUsername,
+  updateUserState,
 } from "./user_service.ts";
 
 export async function registerRpgUser(
@@ -28,7 +30,8 @@ export async function registerRpgUser(
   if (user) {
     return {
       success: false,
-      message: `Discord account has already been registered as "${user.username}"`,
+      message:
+        `Discord account has already been registered as "${user.username}"`,
     } as RegisterUserResult;
   }
 
@@ -48,17 +51,61 @@ export async function registerRpgUser(
     stamina: 5,
     region: 0,
     posX: 5,
-    posY: 5
+    posY: 5,
   } as User);
 
   return { success: true };
 }
 
+export async function executeRpgCommand(
+  command: RpgCommand,
+  user: User,
+  parameters: string[],
+): Promise<boolean> {
+  let result = false;
+  switch (command) {
+    case RpgCommand.Move:
+      switch (parameters[0]) {
+        case "up":
+          user.posY--;
+          user.exp++;
+          await updateUserState(user);
+          result = true;
+          break;
+
+        case "down":
+          user.posY++;
+          user.exp++;
+          await updateUserState(user);
+          result = true;
+          break;
+
+        case "left":
+          user.posX--;
+          user.exp++;
+          await updateUserState(user);
+          result = true;
+          break;
+
+        case "right":
+          user.posX++;
+          user.exp++;
+          await updateUserState(user);
+          result = true;
+          break;
+      }
+
+      break;
+  }
+
+  return result;
+}
+
 export function getRpgUserSummary(user: User) {
   let result = `**${user.username}**\n`;
   result += `Exp: ${user.exp}\n`;
-  result += `Gold: ${user.gold}\n`
-  result += `Region: ${user.region}\n`
+  result += `Gold: ${user.gold}\n`;
+  result += `Region: ${user.region}\n`;
   result += `PosX: ${user.posX}\n`;
   result += `PosY: ${user.posY}`;
 
