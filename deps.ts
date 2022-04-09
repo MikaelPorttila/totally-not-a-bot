@@ -39,7 +39,7 @@ export {
   startBot,
   stopBot,
   unpinMessage,
-  upsertApplicationCommand,
+  upsertApplicationCommand
 } from "https://deno.land/x/discordeno/mod.ts";
 
 export { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
