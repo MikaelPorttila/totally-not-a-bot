@@ -67,6 +67,9 @@ export async function executeRpgCommand(
     case RpgCommand.Move:
       switch (parameters[0]) {
         case "up":
+        case "north":
+        case "w":
+        case "norr":
           user.posY--;
           user.exp++;
           await updateUserState(user);
@@ -74,20 +77,27 @@ export async function executeRpgCommand(
           break;
 
         case "down":
+        case "south":
+        case "s":
+        case "syd":
           user.posY++;
           user.exp++;
           await updateUserState(user);
           result = true;
           break;
-
         case "left":
+        case "west":
+        case "a":
+        case "väst":
           user.posX--;
           user.exp++;
           await updateUserState(user);
           result = true;
           break;
-
         case "right":
+        case "east":
+        case "d":
+        case "öst":
           user.posX++;
           user.exp++;
           await updateUserState(user);

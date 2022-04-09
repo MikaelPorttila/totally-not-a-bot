@@ -84,8 +84,10 @@ export async function createHandler(
         }
         break;
       case RpgCommand.Help:
-        msg = "register <name> - Step into the World of Wääw\n" +
-          "help - List commands";
+        msg = "**register** <name> - Step into the World of Wääw\n" +
+          "**stats** - list your current stats\n" +
+          "**move** <up,north,w,norr | down,south,s,syd | left,west,a,väst | right,east,d,öst> - Move your character\n" +
+          "**help** - List commands";
         await replyToMessage(bot, message, msg);
         break;
     }
