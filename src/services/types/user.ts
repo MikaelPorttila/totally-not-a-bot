@@ -1,6 +1,6 @@
 export interface User {
   id?: string;
   discordId: string;
-  counter: number;
+  counter?: number;
   name: string;
 }

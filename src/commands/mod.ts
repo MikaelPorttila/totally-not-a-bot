@@ -44,6 +44,4 @@ export function registerCommands(): void {
   } else {
     console.log("Skipped Banger command due to feature toggle");
   }
-
-  console.log("[Bot] Registered commands");
 }

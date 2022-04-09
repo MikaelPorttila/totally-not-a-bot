@@ -5,7 +5,7 @@ import type {
   Interaction,
   Message,
 } from "../deps.ts";
-import { createReactionHandler } from "./handlers/mod.ts";
+import { createReactionHandler, createRpgHandler } from "./handlers/mod.ts";
 import type { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -28,6 +28,13 @@ const clientBot = createBot({
       console.log("[Bot]", "Register message handlers");
       handlers = [];
 
+      if (configs.featureToggles.rpg) {
+        const rpgHandler = await createRpgHandler(bot, guildId);
+        handlers.push(rpgHandler);
+      } else {
+        console.log("Skipped RPG handler due to feature toggle");
+      }
+
       if (configs.featureToggles.reactions) {
         handlers.push(createReactionHandler());
       } else {
@@ -37,10 +44,13 @@ const clientBot = createBot({
       console.log("[Bot]", "Registered", handlers.length, "message handlers");
 
       registerCommands();
+      console.log("[Bot] Registered", clientBot.commands.size, "commands");
 
       await bot.helpers.upsertApplicationCommands(
         clientBot.commands.array() as CreateApplicationCommand[],
       );
+
+      console.log("[Bot] is Running ✅");
     },
     async messageCreate(bot: Bot, message: Message) {
       if (message.isBot) {
@@ -54,7 +64,11 @@ const clientBot = createBot({
 
       const messageWords = messageText.split(/\s+|\./);
       for (const handler of handlers) {
-        await handler(bot, message, messageWords);
+        try {
+          await handler(bot, message, messageWords);
+        } catch (err) {
+          console.error("Handler error", err);
+        }
       }
     },
     async interactionCreate(bot: Bot, interaction: Interaction) {

@@ -37,6 +37,28 @@ export async function getUserByDiscordId(
   return data?.queryUser as User;
 }
 
+export async function getUserByUsername(
+  username: string,
+): Promise<User | undefined> {
+  const query = gql`
+    query getUserByUsername($eq: String) {
+        queryUser(filter: {username: {eq: $eq}}, first: 1) {
+            counter
+            discordId
+            id
+            name
+            username
+        }
+    }`;
+
+  const data = await queryOrMutation<{ queryUser: User }>(
+    query,
+    { eq: username },
+  );
+
+  return data?.queryUser as User;
+}
+
 export async function addUser(user: User): Promise<void> {
   const mutation = gql`
     mutation addUser($discordId: Int64!, $name: String) {

@@ -7,7 +7,7 @@ import type { Bot, Interaction } from "../../deps.ts";
 import { createCommand } from "../helpers/command_helper.ts";
 import { isImage } from "../helpers/file_helper.ts";
 import { getImageText } from "../services/ocr_service.ts";
-import { getFirstAttachment } from "../services/channel_Service.ts";
+import { getFirstAttachment } from "../services/channel_service.ts";
 
 export function registerCommand() {
   createCommand({
