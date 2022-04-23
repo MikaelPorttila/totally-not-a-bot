@@ -30,6 +30,10 @@ export function createHandler(): MessageHandler {
       for: ["efternamn"],
       reply: "https://youtu.be/esVuKP7k974?t=95",
     },
+    {
+      for: ["io", "space", "inferno", "kappabar", "kappa", "matrix"],
+      reply: "Äre gibb eller?! 🔥🔥🔥"
+    }
   ];
 
   return async function (
