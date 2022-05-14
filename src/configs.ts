@@ -37,5 +37,6 @@ export const configs = {
     meme: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_MEME"), true),
     reactions: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_REACTIONS"), true),
     weather: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_WEATHER"), true),
+    tagMe: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_TAG_ME"), true),
   },
 } as Config;

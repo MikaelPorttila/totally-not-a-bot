@@ -7,4 +7,5 @@ export interface FeatureToggles {
   weather?: boolean;
   meme?: boolean;
   reactions?: boolean;
+  tagMe?: boolean;
 }

@@ -16,7 +16,7 @@ export async function replyToMessage(
         guildId: message.guildId,
         messageId: message.id,
         failIfNotExists: false,
-      }
+      },
     },
   );
   return result;

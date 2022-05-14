@@ -4,6 +4,7 @@ import { registerCommand as registerFridayCommand } from "./friday.ts";
 import { registerCommand as registerRpgCommand } from "./rpg.ts";
 import { registerCommand as registerGiffTextCommand } from "./giff_text.ts";
 import { registerCommand as registerBangerCommand } from "./banger.ts";
+import { registerCommand as registerTagMeCommand } from "./tag_me.ts";
 import { configs } from "../configs.ts";
 
 export function registerCommands(): void {
@@ -43,5 +44,11 @@ export function registerCommands(): void {
     registerBangerCommand();
   } else {
     console.log("Skipped Banger command due to feature toggle");
+  }
+
+  if (configs.featureToggles.tagMe) {
+    registerTagMeCommand();
+  } else {
+    console.log("Skipped TagMe command due to feature toggle");
   }
 }
