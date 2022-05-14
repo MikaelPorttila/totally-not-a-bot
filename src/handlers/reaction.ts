@@ -32,8 +32,8 @@ export function createHandler(): MessageHandler {
     },
     {
       for: ["io", "space", "inferno", "kappabar", "kappa", "matrix"],
-      reply: "Äre gibb eller?! 🔥🔥🔥"
-    }
+      reply: "Äre gibb eller?! 🔥🔥🔥",
+    },
   ];
 
   return async function (
