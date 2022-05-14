@@ -7,7 +7,7 @@ import {
   
   export function registerCommand() {
     createCommand({
-      name: "Tag me",
+      name: "tag-me",
       description: "Tags the message author in the reply",
       type: ApplicationCommandTypes.ChatInput,
       execute: async (bot: Bot, interaction) => {
