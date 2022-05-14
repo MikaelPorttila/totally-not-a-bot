@@ -17,7 +17,7 @@ export function registerCommand() {
         {
           type: InteractionResponseTypes.ChannelMessageWithSource,
           data: {
-            content: `<@${interaction.member?.id}>`,
+            content: `<@${interaction.user.id}>`,
           },
         },
       );
