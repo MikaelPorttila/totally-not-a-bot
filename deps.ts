@@ -10,7 +10,7 @@ export type {
   Interaction,
   Message,
   User,
-} from "https://deno.land/x/discordeno@13.0.0-rc34/mod.ts";
+} from "https://deno.land/x/discordeno@12.0.1/mod.ts";
 
 export {
   addReaction,
@@ -40,7 +40,7 @@ export {
   stopBot,
   unpinMessage,
   upsertApplicationCommand,
-} from "https://deno.land/x/discordeno@13.0.0-rc34/mod.ts";
+} from "https://deno.land/x/discordeno@12.0.1/mod.ts";
 
 /* export { DOMParser } from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
 
