@@ -1,4 +1,4 @@
-import { DOMParser } from "../../deps.ts";
+/* import { DOMParser } from "../../deps.ts";
 import type { Meme } from "../types/meme.ts";
 import { configs } from "../configs.ts";
 
@@ -26,3 +26,4 @@ export async function queryMeme(queryText: string): Promise<Meme | undefined> {
     } as Meme
     : undefined;
 }
+ */
