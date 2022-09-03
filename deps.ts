@@ -50,4 +50,4 @@ export * from "https://deno.land/std@0.117.0/fmt/colors.ts";
 
 export { serve } from "https://deno.land/std@0.133.0/http/server.ts";
 
-export { gql, request } from "https://deno.land/x/graphql_request/mod.ts";
+/* export { gql, request } from "https://deno.land/x/graphql_request/mod.ts"; */

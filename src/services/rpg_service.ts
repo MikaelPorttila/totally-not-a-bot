@@ -1,4 +1,4 @@
-import type { RegisterUserResult } from "./types/rpg.ts";
+/* import type { RegisterUserResult } from "./types/rpg.ts";
 import { RpgCommand } from "./types/rpg_command.ts";
 import type { User } from "./types/user.ts";
 import {
@@ -121,3 +121,4 @@ export function getRpgUserSummary(user: User) {
 
   return result;
 }
+ */

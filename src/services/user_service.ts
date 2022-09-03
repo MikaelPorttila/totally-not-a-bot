@@ -1,4 +1,4 @@
-import { gql } from "../../deps.ts";
+/* import { gql } from "../../deps.ts";
 import { queryOrMutation } from "./graph_service.ts";
 import type { User } from "./types/user.ts";
 
@@ -176,3 +176,4 @@ export async function deleteUser(user: User): Promise<void> {
 
   await queryOrMutation<void>(mutation, { id: user.id });
 }
+ */

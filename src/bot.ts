@@ -5,7 +5,7 @@ import type {
   Interaction,
   Message,
 } from "../deps.ts";
-import { createReactionHandler, createRpgHandler } from "./handlers/mod.ts";
+import { createReactionHandler, /* createRpgHandler */ } from "./handlers/mod.ts";
 import type { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -28,12 +28,12 @@ const clientBot = createBot({
       console.log("[Bot]", "Register message handlers");
       handlers = [];
 
-      if (configs.featureToggles.rpg) {
+      /* if (configs.featureToggles.rpg) {
         const rpgHandler = await createRpgHandler(bot, guildId);
         handlers.push(rpgHandler);
       } else {
         console.log("Skipped RPG handler due to feature toggle");
-      }
+      } */
 
       if (configs.featureToggles.reactions) {
         handlers.push(createReactionHandler());
