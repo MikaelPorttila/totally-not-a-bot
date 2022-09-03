@@ -1,6 +1,6 @@
 import type { Bot, Message } from "../../deps.ts";
 import type { MessageHandler } from "./types/mod.ts";
-import { addReaction, sendMessage } from "../../deps.ts";
+import { addReaction } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
 import { replyToMessage } from "../services/mod.ts";
 
@@ -34,6 +34,22 @@ export function createHandler(): MessageHandler {
       for: ["io", "space", "inferno", "kappabar", "kappa", "matrix"],
       reply: "Äre gibb eller?! 🔥🔥🔥",
     },
+    {
+      for: ['ulf', 'kristersson', 'uffe', 'moderaterna', 'm', 'moderat', 'högern'],
+      reaction: getEmojiReactionName("ulfOMEGALUL")
+    },
+    {
+      for: ['ebba', 'busch', 'kd', 'gud', 'kristdemokraterna', 'högern'],
+      reaction: getEmojiReactionName("ulfOMEGALUL")
+    },
+    {
+      for: ['jimmie', 'jimmy','åkesson', 'jimpa', 'sd', 'sverigedemokrater', 'sverigedemokraterna', 'högern'],
+      reaction: getEmojiReactionName("jimmieOMEGALUL")
+    },
+    {
+      for: ['magdalena', 'sosse', 'såsse', 's', 'socialdemokrat', 'socialdemokraterna'],
+      reaction: getEmojiReactionName("magdalenaOMEGALUL")
+    }
   ];
 
   return async function (

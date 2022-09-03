@@ -1,4 +1,4 @@
-import { request } from "../../deps.ts";
+/* import { request } from "../../deps.ts";
 import { configs } from "../configs.ts";
 
 const DGRAPH_ENDPOINT_AUTH_HEADER = "DG-Auth";
@@ -23,3 +23,4 @@ export async function queryOrMutation<T>(
     DEFAULT_HEADERS,
   );
 }
+ */

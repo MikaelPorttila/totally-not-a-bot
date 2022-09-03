@@ -1,4 +1,4 @@
-import {
+/* import {
   addReaction,
   Bot,
   createChannel,
@@ -93,3 +93,4 @@ export async function createHandler(
     }
   };
 }
+ */
