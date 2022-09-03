@@ -13,4 +13,4 @@ jobs:
     - uses: denoland/setup-deno@v1
       with:
         deno-version: v1.x
-    - run: deno bundle ./src/mod.ts
+    - run: deno bundle --no-check ./src/mod.ts
