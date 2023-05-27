@@ -17,3 +17,8 @@
 ```cmd
 deno run --allow-net --allow-env ./src/mod.ts
 ```
+
+## Build
+```cmd
+deno compile --allow-net --allow-env --output totally-not-a-bot.exe ./src/mod.ts
+```
