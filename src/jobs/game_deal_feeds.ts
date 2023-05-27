@@ -46,7 +46,7 @@ export async function registerGameDealsJob(guildId: bigint) {
             const unpublishedDeals = gameDeals.filter(x => lastUpdated == null || x.published > lastUpdated);
             for (const deal of unpublishedDeals) {
                 await bot.helpers.sendMessage(channelId, {
-                    content: `Ny speldeal! - [${deal.title}](${deal.url})`
+                    content: `Speldeal! - ${deal.title}: ${deal.url}`
                 });
 
                 if (lastUpdated == null || deal.published > lastUpdated) {
