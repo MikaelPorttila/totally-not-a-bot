@@ -28,10 +28,10 @@ export function createHandler(): MessageHandler {
     },
     {
       for: ['ebba', 'busch', 'kd', 'gud', 'kristdemokraterna', 'högern'],
-      reaction: getEmojiReactionName("ulfOMEGALUL")
+      reaction: getEmojiReactionName("ebbaOMEGALUL")
     },
     {
-      for: ['jimmie', 'jimmy','åkesson', 'jimpa', 'sd', 'sverigedemokrater', 'sverigedemokraterna', 'högern'],
+      for: ['jimmie', 'jimmy','åkesson', 'jimpa', 'sd', 'sverigedemokrater', 'sverigedemokraterna', 'högern', 'utvisa', 'export'],
       reaction: getEmojiReactionName("jimmieOMEGALUL")
     },
     {

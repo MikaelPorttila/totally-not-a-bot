@@ -7,4 +7,7 @@ export interface Config {
   openWeatherApplicationId?: string;
   env: string;
   featureToggles: FeatureToggles;
+  feedChannels: {
+    gameDeals: string;
+  }
 }

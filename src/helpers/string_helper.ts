@@ -1,11 +1,6 @@
-
+const whiteSpaceOrSymbolsPattern = /\s+|[?!{}()\[\].;,+\-*/&|<>=~\n_]/;
 export function tokenizeString(str: string): string[] {
-    if (!str) {
-        return [];
-    }
-
-    const whiteSpaceOrSymbolsPattern = /\s+|[?!{}()\[\].;,+\-*/&|<>=~\n_]/;
-    return stripAnsi(str).split(whiteSpaceOrSymbolsPattern);
+    return !str ? [] : stripAnsi(str).split(whiteSpaceOrSymbolsPattern)
 }
 
 export function stripAnsi(str: string): string {

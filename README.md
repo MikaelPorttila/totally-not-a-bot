@@ -21,10 +21,10 @@ TNAB_TOKEN: <Discord Bot Token>
 
 ## Run
 ```cmd
-deno run --allow-net --allow-env ./src/mod.ts
+deno run --allow-net --allow-env --allow-read --watch ./src/mod.ts
 ```
 
 ## Build
 ```cmd
-deno compile --allow-net --allow-env --output totally-not-a-bot.exe ./src/mod.ts
+deno compile --allow-net --allow-env --allow-read --output totally-not-a-bot.exe ./src/mod.ts
 ```

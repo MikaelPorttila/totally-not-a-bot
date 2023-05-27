@@ -24,4 +24,7 @@ export const configs = {
     weather: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_WEATHER"), true),
     tagMe: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_TAG_ME"), true),
   },
+  feedChannels: {
+    gameDeals: Deno.env.get("TNAB_FEED_CHANNEL_GAME_DEALS")
+  }
 } as Config;
