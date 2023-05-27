@@ -13,6 +13,12 @@
 
 # Developer instructions
 
+## Required env variables
+```
+TNAB_APPLICATION_ID: <Discord Application Id>
+TNAB_TOKEN: <Discord Bot Token>
+```
+
 ## Run
 ```cmd
 deno run --allow-net --allow-env ./src/mod.ts
