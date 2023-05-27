@@ -14,7 +14,7 @@ export async function getFirstAttachment(
   }
 
   const messages = await getMessages(bot, channelId, { limit: 10 });
-  for (const message of messages) {
+  for (const [_, message] of messages) {
     const attachment = message?.attachments?.[0];
     if (attachment) {
       return attachment;

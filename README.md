@@ -10,3 +10,10 @@
 - Backend: Deno
 - Database: Dgraph using GraphQL
 - API Integration: Discord, OpenWeather and OCR Space
+
+# Developer instructions
+
+## Run
+```cmd
+deno run --allow-net --allow-env ./src/mod.ts
+```

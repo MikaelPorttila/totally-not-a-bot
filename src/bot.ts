@@ -1,9 +1,9 @@
-import { Collection, createBot, getEmojis } from "../deps.ts";
+import { Collection, createBot, getEmojis, GatewayIntents } from "../deps.ts";
 import type {
   Bot,
   CreateApplicationCommand,
   Interaction,
-  Message,
+  Message
 } from "../deps.ts";
 import { createReactionHandler, /* createRpgHandler */ } from "./handlers/mod.ts";
 import type { MessageHandler } from "./handlers/types/mod.ts";
@@ -15,10 +15,9 @@ import type { Command } from "./types/commands.ts";
 let handlers: MessageHandler[];
 
 const clientBot = createBot({
-  botId: configs.botId,
   token: configs.token,
   applicationId: configs.applicationId,
-  intents: ["Guilds", "GuildMessages"],
+  intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent,
   events: {
     async ready(bot: Bot, payload) {
       console.log("[Bot]", "Starting...");
@@ -27,13 +26,6 @@ const clientBot = createBot({
 
       console.log("[Bot]", "Register message handlers");
       handlers = [];
-
-      /* if (configs.featureToggles.rpg) {
-        const rpgHandler = await createRpgHandler(bot, guildId);
-        handlers.push(rpgHandler);
-      } else {
-        console.log("Skipped RPG handler due to feature toggle");
-      } */
 
       if (configs.featureToggles.reactions) {
         handlers.push(createReactionHandler());
@@ -46,14 +38,12 @@ const clientBot = createBot({
       registerCommands();
       console.log("[Bot] Registered", clientBot.commands.size, "commands");
 
-      await bot.helpers.upsertApplicationCommands(
-        clientBot.commands.array() as CreateApplicationCommand[],
-      );
+      bot.helpers.upsertGuildApplicationCommands(guildId, clientBot.commands.array() as CreateApplicationCommand[]);
 
       console.log("[Bot] is Running ✅");
     },
     async messageCreate(bot: Bot, message: Message) {
-      if (message.isBot) {
+      if (message.isFromBot) {
         return;
       }
 

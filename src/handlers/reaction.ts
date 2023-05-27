@@ -15,24 +15,12 @@ export function createHandler(): MessageHandler {
       reaction: getEmojiReactionName("epi"),
     },
     {
-      for: ["cod", "snarkov", "tarkov", "cs", "stridsåker", "bf"],
+      for: ["cod", "snarkov", "tarkov", "cs", "stridsåker", "bf", "dibbe", "diablo"],
       reaction: "🎮",
     },
     {
       for: ["bror", "bruh", "bro", "brother", "broder"],
       reply: "What's up?",
-    },
-    {
-      for: ["namn"],
-      reply: "efternamn",
-    },
-    {
-      for: ["efternamn"],
-      reply: "https://youtu.be/esVuKP7k974?t=95",
-    },
-    {
-      for: ["io", "space", "inferno", "kappabar", "kappa", "matrix"],
-      reply: "Äre gibb eller?! 🔥🔥🔥",
     },
     {
       for: ['ulf', 'kristersson', 'uffe', 'moderaterna', 'm', 'moderat', 'högern'],
