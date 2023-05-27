@@ -17,7 +17,7 @@ let handlers: MessageHandler[];
 const clientBot = createBot({
   token: configs.token,
   applicationId: configs.applicationId,
-  intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent,
+  intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent | GatewayIntents.GuildEmojis,
   events: {
     async ready(bot: Bot, payload) {
       console.log("[Bot]", "Starting...");

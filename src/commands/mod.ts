@@ -4,9 +4,11 @@ import { registerCommand as registerFridayCommand } from "./friday.ts";
 import { registerCommand as registerBangerCommand } from "./banger.ts";
 import { registerCommand as registerTagMeCommand } from "./tag_me.ts";
 import { configs } from "../configs.ts";
+import { clearCommands } from "../helpers/command_helper.ts";
 
 export function registerCommands(): void {
   console.log("[Bot] Register commands");
+  clearCommands();
 
   if (configs.featureToggles.ping) {
     registerPingCommand();
