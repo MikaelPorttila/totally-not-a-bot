@@ -48,7 +48,7 @@ const clientBot = createBot({
       /*
         Scheduled jobs
       */
-      registerJobs(guildId);
+      await registerJobs(guildId);
     },
     async messageCreate(bot: Bot, message: Message) {
       if (message.isFromBot) {

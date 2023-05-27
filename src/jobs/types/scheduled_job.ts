@@ -4,6 +4,6 @@ export interface ScheduledJob {
   name: string;
   description?: string;
   schedule: string;
-  prerequisites: () => boolean;
+  setup: (bot: Bot) => Promise<boolean>;
   execute: (bot: Bot) => Promise<unknown>;
 }

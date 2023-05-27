@@ -1,34 +1,60 @@
-import type { BigString, Bot } from "../../deps.ts";
+import type { Bot } from "../../deps.ts";
 import { configs } from "../configs.ts";
+import { fileExists, readJson, writeJson } from "../helpers/file_helper.ts";
 import { createScheduledJob } from "../helpers/scheduled_job_helper.ts";
+import { getGameDeals } from "../services/game_deal_service.ts";
 
-export function registerGameDealsJob(guildId: bigint) {
-    const channelIdCache = new Map<bigint, BigString>();
-    createScheduledJob({
-        name: 'Feed',
-        // 5 sec: '*/5 * * * * *'
+const jobName = "Feed";
+const storageFileName = "game-deals.json";
+
+async function getStorageDate(): Promise<Date | null> {
+    return (await fileExists(storageFileName)) ? (await readJson<Date>(storageFileName)) : null;
+}
+
+async function setStorageDate(date: Date): Promise<void> {
+    await writeJson(storageFileName, date);
+}
+
+export async function registerGameDealsJob(guildId: bigint) {
+    let channelId: bigint;
+    let lastUpdated: Date | null;
+    await createScheduledJob({
+        name: jobName,
         schedule: '*/15 * * * *',
-        prerequisites: () => !!configs.feedChannels.gameDeals,
-        execute: async (bot: Bot) => {
-            let channelId = channelIdCache.get(guildId);
-            if (!channelId) {
-                const channels = await bot.helpers.getChannels(guildId);
-                for (const [_, channel] of channels) {
-                    if (channel.name?.toLocaleLowerCase() === configs.feedChannels.gameDeals) {
-                        channelId = channel.id;
-                    }
+        setup: async (bot: Bot) => {
+            if (!configs.feedChannels.gameDeals) {
+                return false;
+            }
+
+            for (const [_, channel] of await bot.helpers.getChannels(guildId)) {
+                if (channel.name?.toLocaleLowerCase() === configs.feedChannels.gameDeals) {
+                    channelId = channel.id;
                 }
-
-                channelIdCache.set(guildId, channelId as BigString);
             }
 
-            if (channelId) {
-                bot.helpers.sendMessage(channelId, {
-                    content: 'Hello Feed!'
+            const foundChannel = channelId !== undefined;
+            if (!foundChannel) {
+                return false;
+            }
+
+            lastUpdated = await getStorageDate();
+
+            return foundChannel;
+        },
+        execute: async (bot: Bot) => {
+            const gameDeals = await getGameDeals();
+            const unpublishedDeals = gameDeals.filter(x => lastUpdated == null || x.published > lastUpdated);
+            for (const deal of unpublishedDeals) {
+                await bot.helpers.sendMessage(channelId, {
+                    content: `Ny speldeal! - [${deal.title}](${deal.url})`
                 });
-            } else {
-                console.warn(`[Bot] GameDeals can't channel ${configs.feedChannels.gameDeals}`);
+
+                if (lastUpdated == null || deal.published > lastUpdated) {
+                    lastUpdated = deal.published;
+                }
             }
+
+            await setStorageDate(lastUpdated as Date);
         }
     })
 }

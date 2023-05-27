@@ -1,5 +1,5 @@
 import { registerGameDealsJob } from "./game_deal_feeds.ts";
 
-export function registerJobs(guildId: bigint) {
-    registerGameDealsJob(guildId);
+export async function registerJobs(guildId: bigint) {
+    await registerGameDealsJob(guildId);
 }

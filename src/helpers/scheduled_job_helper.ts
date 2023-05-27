@@ -2,8 +2,9 @@ import type { ScheduledJob } from "../jobs/types/scheduled_job.ts";
 import { bot } from "../bot.ts";
 import { Cron } from '../../deps.ts';
 
-export function createScheduledJob(job: ScheduledJob): void {
-    if (job.prerequisites()) {
+export async function createScheduledJob(job: ScheduledJob): Promise<void> {
+    const start = await job.setup(bot)
+    if (start) {
         console.log('[Bot] Job registered:', job.name, 'with schedule', job.schedule);
         new Cron(job.schedule, () => {
             console.log('[Bot] Job', job.name, 'started');

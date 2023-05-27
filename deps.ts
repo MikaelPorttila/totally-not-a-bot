@@ -46,3 +46,5 @@ export * from "https://deno.land/std@0.177.0/fmt/colors.ts";
 export { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
 export { Cron } from "https://deno.land/x/croner@6.0.3/dist/croner.js";
+
+export { parseFeed } from 'https://deno.land/x/rss/mod.ts';
