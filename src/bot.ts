@@ -11,6 +11,7 @@ import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
 import { registerCommands } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
+import { tokenizeString } from "./helpers/string_helper.ts";
 
 let handlers: MessageHandler[];
 
@@ -52,7 +53,7 @@ const clientBot = createBot({
         return;
       }
 
-      const messageWords = messageText.split(/\s+|\./);
+      const messageWords = tokenizeString(messageText);
       for (const handler of handlers) {
         try {
           await handler(bot, message, messageWords);
