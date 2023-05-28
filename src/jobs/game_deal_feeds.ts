@@ -2,6 +2,7 @@ import type { Bot } from "../../deps.ts";
 import { configs } from "../configs.ts";
 import { fileExists, readJson, writeJson } from "../helpers/file_helper.ts";
 import { createScheduledJob } from "../helpers/scheduled_job_helper.ts";
+import { findChannelIdByName } from "../services/channel_service.ts";
 import { getGameDeals } from "../services/game_deal_service.ts";
 
 const jobName = "Feed";
@@ -16,7 +17,7 @@ async function setStorageDate(date: Date): Promise<void> {
 }
 
 export async function registerGameDealsJob(guildId: bigint) {
-    let channelId: bigint;
+    let channelId: bigint | null;
     let lastUpdated: Date | null;
     await createScheduledJob({
         name: jobName,
@@ -26,24 +27,22 @@ export async function registerGameDealsJob(guildId: bigint) {
                 return false;
             }
 
-            for (const [_, channel] of await bot.helpers.getChannels(guildId)) {
-                if (channel.name?.toLocaleLowerCase() === configs.feedChannels.gameDeals) {
-                    channelId = channel.id;
-                }
-            }
-
+            channelId = await findChannelIdByName(configs.feedChannels.gameDeals, guildId, bot);
             const foundChannel = channelId !== undefined;
             if (!foundChannel) {
                 return false;
             }
 
             lastUpdated = await getStorageDate();
-
             return foundChannel;
         },
         execute: async (bot: Bot) => {
+            if (!channelId) {
+                return;
+            }
+
             const gameDeals = await getGameDeals();
-            const unpublishedDeals = gameDeals.filter(x => lastUpdated == null || x.published > lastUpdated);
+            const unpublishedDeals = lastUpdated ? gameDeals.filter(x => lastUpdated !== null && x.published > lastUpdated) : gameDeals;
             for (const deal of unpublishedDeals) {
                 await bot.helpers.sendMessage(channelId, {
                     content: `Speldeal! - ${deal.title}: ${deal.url}`

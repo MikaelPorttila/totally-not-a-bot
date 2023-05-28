@@ -16,9 +16,7 @@ export function registerCommand() {
         interaction.token,
         {
           type: InteractionResponseTypes.ChannelMessageWithSource,
-          data: {
-            content: `Pong!`,
-          },
+          data: { content: `Pong!` },
         },
       );
     },

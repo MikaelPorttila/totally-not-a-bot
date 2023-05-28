@@ -1,4 +1,4 @@
-import type { Attachment, Bot } from "../../deps.ts";
+import type { Attachment, Bot, BigString } from "../../deps.ts";
 import { getMessages } from "../../deps.ts";
 
 export async function getFirstAttachment(
@@ -20,4 +20,14 @@ export async function getFirstAttachment(
       return attachment;
     }
   }
+}
+
+export async function findChannelIdByName(channelName: string, guildId: BigString, bot: Bot,): Promise<bigint | null> {
+  for (const [_, channel] of await bot.helpers.getChannels(guildId)) {
+    if (channel.name?.toLocaleLowerCase() === channelName) {
+        return channel.id;
+    }
+  }
+
+  return null;
 }

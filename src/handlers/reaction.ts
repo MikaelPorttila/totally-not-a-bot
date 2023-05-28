@@ -15,12 +15,8 @@ export function createHandler(): MessageHandler {
       reaction: getEmojiReactionName("epi"),
     },
     {
-      for: ["cod", "snarkov", "tarkov", "cs", "stridsåker", "bf", "dibbe", "diablo", "1.6", "csgo"],
-      reaction: "🎮",
-    },
-    {
-      for: ["bror", "bruh", "bro", "brother", "broder", "veli", "brur"],
-      reply: "Zup? 😉",
+      for: ["bror", "bruh", "brother", "broder", "veli", "brur"],
+      reaction: "👀",
     },
     {
       for: ['ulf', 'kristersson', 'uffe', 'moderaterna', 'm', 'moderat', 'högern'],
@@ -57,10 +53,12 @@ export function createHandler(): MessageHandler {
               message.id,
               group.reaction,
             );
+            console.log('[Bot] Reacted with', group.reaction);
           }
 
           if (group.reply) {
             replyToMessage(bot, message, group.reply);
+            console.log('[Bot] replied with', group.reply);
           }
         } catch (err) {
           console.error("[Reaction Handler]", err);
