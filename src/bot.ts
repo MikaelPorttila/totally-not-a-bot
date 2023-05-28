@@ -5,7 +5,7 @@ import type {
   Interaction,
   Message
 } from "../deps.ts";
-import { createReactionHandler, /* createRpgHandler */ } from "./handlers/mod.ts";
+import { getHandlers } from "./handlers/mod.ts";
 import type { MessageHandler } from "./handlers/types/mod.ts";
 import { configs } from "./configs.ts";
 import type { BotClient } from "./types/bot_client.ts";
@@ -13,13 +13,16 @@ import { registerCommands } from "./commands/mod.ts";
 import type { Command } from "./types/commands.ts";
 import { tokenizeString } from "./helpers/string_helper.ts";
 import { registerJobs } from "./jobs/mod.ts";
+import { setupDatabase } from "./services/db_service.ts";
 
 let handlers: MessageHandler[];
+
+setupDatabase();
 
 const clientBot = createBot({
   token: configs.token,
   applicationId: configs.applicationId,
-  intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent | GatewayIntents.GuildEmojis,
+  intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent | GatewayIntents.GuildEmojis | GatewayIntents.GuildMembers,
   events: {
     async ready(bot: Bot, payload) {
       console.log("[Bot]", "Starting...");
@@ -30,12 +33,7 @@ const clientBot = createBot({
       /*
         Handlers
       */
-      console.log("[Bot]", "Register message handlers");
-      handlers = [];
-      if (configs.featureToggles.reactions) {
-        handlers.push(createReactionHandler());
-      }
-      console.log("[Bot]", "Registered", handlers.length, "message handlers");
+      handlers = getHandlers();
 
       /*
         Commands
