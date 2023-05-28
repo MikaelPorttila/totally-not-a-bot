@@ -5,38 +5,39 @@ import { registerCommand as registerBangerCommand } from "./banger.ts";
 import { registerCommand as registerTagMeCommand } from "./tag_me.ts";
 import { configs } from "../configs.ts";
 import { clearCommands } from "../helpers/command_helper.ts";
+import { log } from "../services/log_helper.ts";
 
 export function registerCommands(): void {
-  console.log("[Bot] Register commands");
+  log("Register commands");
   clearCommands();
 
   if (configs.featureToggles.ping) {
     registerPingCommand();
   } else {
-    console.log("Skipped Ping command due to feature toggle");
+    log("Skipped Ping command due to feature toggle");
   }
 
   if (configs.featureToggles.weather) {
     registerWeatherCommand();
   } else {
-    console.log("Skipped Weather command due to feature toggle");
+    log("Skipped Weather command due to feature toggle");
   }
 
   if (configs.featureToggles.friday) {
     registerFridayCommand();
   } else {
-    console.log("Skipped Friday command due to feature toggle");
+    log("Skipped Friday command due to feature toggle");
   }
 
   if (configs.featureToggles.banger) {
     registerBangerCommand();
   } else {
-    console.log("Skipped Banger command due to feature toggle");
+    log("Skipped Banger command due to feature toggle");
   }
 
   if (configs.featureToggles.tagMe) {
     registerTagMeCommand();
   } else {
-    console.log("Skipped TagMe command due to feature toggle");
+    log("Skipped TagMe command due to feature toggle");
   }
 }

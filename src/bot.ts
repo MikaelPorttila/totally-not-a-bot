@@ -14,6 +14,7 @@ import type { Command } from "./types/commands.ts";
 import { tokenizeString } from "./helpers/string_helper.ts";
 import { registerJobs } from "./jobs/mod.ts";
 import { setupDatabase } from "./services/db_service.ts";
+import { log, logError } from "./services/log_helper.ts";
 
 let handlers: MessageHandler[];
 
@@ -25,27 +26,18 @@ const clientBot = createBot({
   intents: GatewayIntents.Guilds | GatewayIntents.GuildMessages | GatewayIntents.MessageContent | GatewayIntents.GuildEmojis | GatewayIntents.GuildMembers,
   events: {
     async ready(bot: Bot, payload) {
-      console.log("[Bot]", "Starting...");
+      log("Starting...");
       const guildId = payload.guilds[0] as bigint;
-      console.log('GuildId', guildId);
+      log('GuildId', guildId);
       clientBot.emojis = await getEmojis(bot, guildId);
 
-      /*
-        Handlers
-      */
       handlers = getHandlers();
 
-      /*
-        Commands
-      */
       registerCommands();
-      console.log("[Bot] Registered", clientBot.commands.size, "commands");
+      log(`Registered ${clientBot.commands.size} commands`);
       bot.helpers.upsertGuildApplicationCommands(guildId, clientBot.commands.array() as CreateApplicationCommand[]);
-      console.log("[Bot] is Running ✅");
+      log("Running ✅");
 
-      /*
-        Scheduled jobs
-      */
       await registerJobs(guildId);
     },
     async messageCreate(bot: Bot, message: Message) {
@@ -72,7 +64,8 @@ const clientBot = createBot({
       if (!interactionName) {
         return;
       }
-      console.log(`[${interactionName} Command]`, "request");
+
+      log(`[${interactionName} Command] request`);
 
       const command = clientBot.commands.find((_, name) =>
         name === interactionName
@@ -84,9 +77,9 @@ const clientBot = createBot({
 
       try {
         await command.execute(bot, interaction);
-        console.log(`[${interactionName} Command] executed`);
+        log(`[${interactionName} Command] executed`);
       } catch (err) {
-        console.error(`[${interactionName} Command] Failed`, err);
+        logError(`[${interactionName} Command] Failed`, err);
       }
     },
   },

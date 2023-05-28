@@ -4,12 +4,6 @@ import { addReaction } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
 import { replyToMessage } from "../services/mod.ts";
 
-interface ReactionEntry {
-  for: string[],
-  reaction?: string;
-  reply?: string;
-}
-
 export function createHandler(): MessageHandler {
   return async function (
     _: Bot,
@@ -19,7 +13,7 @@ export function createHandler(): MessageHandler {
     await new Promise<void>((resolve) => {
        /*  const memberId = message?.member?.user?.id;
         console.log(message); */
-        resolve()
+        resolve();
     });
   };
 }

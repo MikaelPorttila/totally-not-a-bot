@@ -2,8 +2,8 @@ import type { Bot } from "../../deps.ts";
 import { configs } from "../configs.ts";
 import { fileExists, readJson, writeJson } from "../helpers/file_helper.ts";
 import { createScheduledJob } from "../helpers/scheduled_job_helper.ts";
-import { findChannelIdByName } from "../services/channel_service.ts";
 import { getGameDeals } from "../services/game_deal_service.ts";
+import { logWarning } from "../services/log_helper.ts";
 
 const jobName = "Feed";
 const storageFileName = "game-deals.json";
@@ -17,24 +17,20 @@ async function setStorageDate(date: Date): Promise<void> {
 }
 
 export async function registerGameDealsJob(guildId: bigint) {
-    let channelId: bigint | null;
+    let channelId: bigint | undefined;
     let lastUpdated: Date | null;
     await createScheduledJob({
         name: jobName,
         schedule: '*/15 * * * *',
-        setup: async (bot: Bot) => {
-            if (!configs.feedChannels.gameDeals) {
-                return false;
-            }
-
-            channelId = await findChannelIdByName(configs.feedChannels.gameDeals, guildId, bot);
-            const foundChannel = channelId !== undefined;
-            if (!foundChannel) {
+        setup: async (_: Bot) => {
+            channelId = configs.feedChannels.gameDealChannelId;
+            if (!configs.feedChannels.gameDealChannelId) {
+                logWarning(`Job ${jobName} missing gameDealChannelId`);
                 return false;
             }
 
             lastUpdated = await getStorageDate();
-            return foundChannel;
+            return true;
         },
         execute: async (bot: Bot) => {
             if (!channelId) {

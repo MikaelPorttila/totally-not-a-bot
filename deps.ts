@@ -50,3 +50,5 @@ export { Cron } from "https://deno.land/x/croner@6.0.3/dist/croner.js";
 export { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 
 export { DB } from "https://deno.land/x/sqlite/mod.ts";
+
+export { format } from "https://deno.land/std@0.177.1/datetime/mod.ts";

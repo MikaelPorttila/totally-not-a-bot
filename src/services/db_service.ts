@@ -1,9 +1,10 @@
 import { DB } from "../../deps.ts";
+import { log, logWarning } from "./log_helper.ts";
 
 export const databaseFileName = "tnab.db";
 
 export function setupDatabase() {
-    console.log('[Bot] setup database started');
+    log('Setup database started');
     useDb((db) => {
         db.execute(`
             CREATE TABLE IF NOT EXISTS settings (
@@ -30,10 +31,10 @@ export function setupDatabase() {
                 `);
             });
 
-            console.log('[Bot] Updated database to version 1')
+            log('Updated database to version 1')
         }
 
-        console.log('[Bot] setup database completed');
+        log('Setup database completed');
     });
 }
 
@@ -46,7 +47,7 @@ export function useDb(dbUsage: (db: DB, isWrite?: boolean) => void) {
         dbUsage(db);
     }
     catch (err) {
-        console.warn('[Bot] DB usage failed', err);
+        logWarning('DB usage failed', err);
     }
 
     db.close();

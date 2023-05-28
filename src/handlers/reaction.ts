@@ -3,6 +3,7 @@ import type { MessageHandler } from "./types/mod.ts";
 import { addReaction } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
 import { replyToMessage } from "../services/mod.ts";
+import { log, logError } from "../services/log_helper.ts";
 
 interface ReactionEntry {
   for: string[],
@@ -59,15 +60,15 @@ export function createHandler(): MessageHandler {
               message.id,
               group.reaction,
             );
-            console.log('[Bot] Reacted with', group.reaction);
+            log('Reacted with', group.reaction);
           }
 
           if (group.reply) {
             replyToMessage(bot, message, group.reply);
-            console.log('[Bot] replied with', group.reply);
+            log('replied with', group.reply);
           }
         } catch (err) {
-          console.error("[Reaction Handler]", err);
+          logError("[Reaction Handler]", err);
         }
       }
     }

@@ -1,11 +1,11 @@
 import { configs } from "../configs.ts";
+import { log } from "../services/log_helper.ts";
 import { createHandler as createReactionHandler } from "./reaction.ts";
 import { createHandler as createStatisticsHandler } from "./statistics.ts";
 import { type MessageHandler } from "./types/mod.ts";
 
-
 export function getHandlers(): MessageHandler[] {
-    console.log("[Bot]", "Register message handlers");
+    log("Register message handlers");
     const handlers = [];
 
     if (configs.featureToggles.reactions) {
@@ -16,6 +16,6 @@ export function getHandlers(): MessageHandler[] {
         handlers.push(createStatisticsHandler());
     }
 
-    console.log("[Bot]", "Registered", handlers.length, "message handlers");
+    log("Registered", handlers.length, "message handlers");
     return handlers;
 }

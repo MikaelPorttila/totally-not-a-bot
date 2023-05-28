@@ -1,4 +1,5 @@
 import { toBoolean } from "./helpers/boolean_helper.ts";
+import { toBigInt } from "./helpers/number_helper.ts";
 import type { Config } from "./types/mod.ts";
 
 const token = Deno.env.get("TNAB_TOKEN");
@@ -23,8 +24,10 @@ export const configs = {
     reactions: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_REACTIONS"), true),
     weather: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_WEATHER"), true),
     tagMe: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_TAG_ME"), true),
+    statistics: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_STATISTICS"), true),
   },
   feedChannels: {
-    gameDeals: Deno.env.get("TNAB_FEED_CHANNEL_GAME_DEALS")
+    gameDeals: Deno.env.get("TNAB_FEED_CHANNEL_GAME_DEALS"),
+    gameDealChannelId: toBigInt(Deno.env.get("TNAB_FEED_GAME_DEALS_CHANNEL_ID"))
   }
 } as Config;

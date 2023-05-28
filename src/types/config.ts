@@ -8,6 +8,6 @@ export interface Config {
   env: string;
   featureToggles: FeatureToggles;
   feedChannels: {
-    gameDeals: string;
+    gameDealChannelId?: bigint;
   }
 }
