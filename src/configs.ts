@@ -27,7 +27,6 @@ export const configs = {
     statistics: toBoolean(Deno.env.get("TNAB_FEATURE_TOGGLE_STATISTICS"), true),
   },
   feedChannels: {
-    gameDeals: Deno.env.get("TNAB_FEED_CHANNEL_GAME_DEALS"),
     gameDealChannelId: toBigInt(Deno.env.get("TNAB_FEED_GAME_DEALS_CHANNEL_ID"))
   }
 } as Config;
