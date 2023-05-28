@@ -6,10 +6,15 @@ export async function createScheduledJob(job: ScheduledJob): Promise<void> {
     const start = await job.setup(bot)
     if (start) {
         console.log('[Bot] Job registered:', job.name, 'with schedule', job.schedule);
-        new Cron(job.schedule, () => {
+        new Cron(job.schedule, async () => {
             console.log('[Bot] Job', job.name, 'started');
-            job.execute(bot);
-            console.log('[Bot] Job', job.name, 'completed');
+            try {
+                await job.execute(bot);
+                console.log('[Bot] Job', job.name, 'completed');
+            }
+            catch {
+                console.warn('[Bot] Job', job.name, 'Failed during execution');
+            }
         });
     } else {
         console.warn('[Bot] Job', job.name, 'failed to match the job prerequisites 💢');
