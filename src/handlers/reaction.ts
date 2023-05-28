@@ -4,8 +4,15 @@ import { addReaction } from "../../deps.ts";
 import { getEmojiReactionName } from "../services/emoji_service.ts";
 import { replyToMessage } from "../services/mod.ts";
 
+
+interface ReactionTable {
+  for: string[],
+  reaction?: string;
+  reply?: string;
+}
+
 export function createHandler(): MessageHandler {
-  const reactionTable = [
+  const reactionTable: ReactionTable[] = [
     {
       for: ["micke", "mikael", "sture"],
       reaction: getEmojiReactionName("intplus"),
