@@ -8,4 +8,5 @@ export interface FeatureToggles {
   reactions?: boolean;
   statistics?: boolean;
   tagMe?: boolean;
+  status?: boolean;
 }

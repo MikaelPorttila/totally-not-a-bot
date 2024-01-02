@@ -3,6 +3,7 @@ import { registerCommand as registerWeatherCommand } from "./weather.ts";
 import { registerCommand as registerFridayCommand } from "./friday.ts";
 import { registerCommand as registerBangerCommand } from "./banger.ts";
 import { registerCommand as registerTagMeCommand } from "./tag_me.ts";
+import { registerCommand as registerStatusCommand } from "./status.ts";
 import { configs } from "../configs.ts";
 import { clearCommands } from "../helpers/command_helper.ts";
 import { log } from "../services/log_helper.ts";
@@ -39,5 +40,11 @@ export function registerCommands(): void {
     registerTagMeCommand();
   } else {
     log("Skipped TagMe command due to feature toggle");
+  }
+
+  if (configs.featureToggles.status) {
+    registerStatusCommand();
+  } else {
+    log("Skipped Status command due to feature toggle");
   }
 }
